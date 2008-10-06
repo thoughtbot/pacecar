@@ -11,6 +11,7 @@ Assuming a database schema and simple model declaration...
       create_table :users, :force => true do |t|
         t.boolean :admin, :default => false
         t.datetime :approved_at
+        t.first_name :string
       end
     end
   end
@@ -21,15 +22,31 @@ Assuming a database schema and simple model declaration...
 
 ...which yields a number of named scope methods.
 
+= All columns
+
+Records where admin is not null, or where it is null...
+
+  User.admin_present
+  User.admin_missing
+
+Records where approved_at is not null, or where it is null...
+
+  User.approved_at_present
+  User.approved_at_missing
+
+Records where first_name is not null, or where it is null...
+
+  User.first_name_present
+  User.first_name_missing
+
+= Boolean columns
+
 Records that are all admins or non-admins...
 
   User.admin
   User.not_admin
 
-Records where approved_at is not null, or where it is null...
-
-  User.approved_at
-  User.not_approved_at
+= Datetime columns
 
 Records approved before or after certain times...
 
@@ -40,3 +57,11 @@ Records with approved_at in the past or future
 
   User.approved_at_in_past
   User.approved_at_in_future
+
+= Named scopes
+
+Because these are all named_scope, you can combine them.
+
+To get all users that have a first_name set, who are admins and approved more than 2 weeks ago...
+
+  User.first_name_present.admin.approved_at_before(2.weeks.ago)

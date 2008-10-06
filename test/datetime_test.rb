@@ -40,6 +40,26 @@ class DatetimeTest < Test::Unit::TestCase
         assert_equal proxy_options, @class.created_at_after(time).proxy_options
       end
     end
+    context "with in_past and in_future methods" do
+      should "respond to _in_past datetime column method" do
+        assert @class.respond_to? :created_at_in_past
+      end
+      should "set correct proxy options for _in_past datetime column method" do
+        now = Time.now
+        Time.stubs(:now).returns now
+        proxy_options = { :conditions => ['created_at < ?', now] }
+        assert_equal proxy_options, @class.created_at_in_past.proxy_options
+      end
+      should "respond to _in_future datetime column method" do
+        assert @class.respond_to? :created_at_in_future
+      end
+      should "set correct proxy options for _in_future datetime column method" do
+        now = Time.now
+        Time.stubs(:now).returns now
+        proxy_options = { :conditions => ['created_at > ?', now] }
+        assert_equal proxy_options, @class.created_at_in_future.proxy_options
+      end
+    end
   end
 
 end

@@ -24,6 +24,12 @@ module Pacecar
           named_scope "#{column}_after".to_sym, lambda { |time|
             { :conditions => ["#{column} > ?", time] }
           }
+          named_scope "#{column}_in_past", lambda {
+            { :conditions => ["#{column} < ?", Time.now] }
+          }
+          named_scope "#{column}_in_future", lambda {
+            { :conditions => ["#{column} > ?", Time.now] }
+          }
         end
       end
 

@@ -16,6 +16,7 @@ module Pacecar
           define_before_after_scopes(name)
           define_past_future_scopes(name)
           define_inside_outside_scopes(name)
+          define_in_date_scopes(name)
         end
       end
 
@@ -32,6 +33,12 @@ module Pacecar
       def define_inside_outside_scopes(name)
         named_scope "#{name}_inside".to_sym, lambda { |start, stop| { :conditions => ["#{name} > ? and #{name} < ?", start, stop] } }
         named_scope "#{name}_outside".to_sym, lambda { |start, stop| { :conditions => ["#{name} < ? and #{name} > ?", start, stop] } }
+      end
+
+      def define_in_date_scopes(name)
+        named_scope "#{name}_in_year".to_sym, lambda { |year| { :conditions => ["year(#{name}) = ?", year] } }
+        named_scope "#{name}_in_month".to_sym, lambda { |month| { :conditions => ["month(#{name}) = ?", month] } }
+        named_scope "#{name}_in_day".to_sym, lambda { |day| { :conditions => ["day(#{name}) = ?", day] } }
       end
 
       def datetime_column_names

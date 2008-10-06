@@ -65,6 +65,34 @@ class DatetimeTest < Test::Unit::TestCase
         assert_equal proxy_options, @class.created_at_outside(@start, @stop).proxy_options
       end
     end
+    context "with year month and day methods" do
+      setup do
+        @year = '2000'
+        @month = '01'
+        @day = '01'
+      end
+      should "respond to _in_year datetime column method" do
+        assert @class.respond_to? :created_at_in_year
+      end
+      should "set correct proxy options for _in_year datetime column method" do
+        proxy_options = { :conditions => ['year(created_at) = ?', @year] }
+        assert_equal proxy_options, @class.created_at_in_year(@year).proxy_options
+      end
+      should "respond to _in_month datetime column method" do
+        assert @class.respond_to? :created_at_in_month
+      end
+      should "set correct proxy options for _in_month datetime column method" do
+        proxy_options = { :conditions => ['month(created_at) = ?', @month] }
+        assert_equal proxy_options, @class.created_at_in_month(@month).proxy_options
+      end
+      should "respond to _in_day datetime column method" do
+        assert @class.respond_to? :created_at_in_day
+      end
+      should "set correct proxy options for _in_day datetime column method" do
+        proxy_options = { :conditions => ['day(created_at) = ?', @day] }
+        assert_equal proxy_options, @class.created_at_in_day(@day).proxy_options
+      end
+    end
   end
 
 end

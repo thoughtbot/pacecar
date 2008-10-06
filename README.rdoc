@@ -72,19 +72,25 @@ Records approved before or after certain times...
   User.approved_at_before(5.days.ago)
   User.approved_at_after(4.weeks.ago)
 
-Records with approved_at in the past or future
+Records with approved_at in the past or future...
 
   User.approved_at_in_past
   User.approved_at_in_future
 
-Records with approved_at inside or outside of two times
+Records with approved_at inside or outside of two times...
 
   User.approved_at_inside(10.days.ago, 1.day.ago)
   User.approved_at_outside(2.days.ago, 1.day.ago)
 
+Records with certain year, month or day...
+
+  User.approved_at_in_year(2000)
+  User.approved_at_in_month(01)
+  User.approved_at_in_day(01)
+
 = Polymorphic relationships
 
-Records which have an owner_type of User
+Records which have an owner_type of User...
 
   Post.for_owner_type(User)
 

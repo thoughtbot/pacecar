@@ -63,6 +63,11 @@ Records where an attribute matches a search term (column LIKE "%term%")...
 
   User.first_name_matches('John')
 
+Records where an attribute starts or ends with a search term...
+
+  User.first_name_starts_with('A')
+  User.first_name_ends_with('a')
+
 Records where any non-state text or string column matches term...
 
   User.search_for('test')

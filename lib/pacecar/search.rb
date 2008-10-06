@@ -17,6 +17,12 @@ module Pacecar
           named_scope "#{name}_matches".to_sym, lambda { |query|
             { :conditions => ["#{name} like :query", { :query => "%#{query}%" }] }
           }
+          named_scope "#{name}_starts_with".to_sym, lambda { |query|
+            { :conditions => ["#{name} like :query", { :query => "#{query}%" }] }
+          }
+          named_scope "#{name}_ends_with".to_sym, lambda { |query|
+            { :conditions => ["#{name} like :query", { :query => "%#{query}" }] }
+          }
         end
       end
 

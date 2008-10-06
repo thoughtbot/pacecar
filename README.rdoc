@@ -39,9 +39,11 @@ Records where first_name is not null, or where it is null...
   User.first_name_present
   User.first_name_missing
 
-Records ordered by first_name...
+Records ordered by first_name (default to 'asc', can specify to override)...
 
   User.by_first_name
+  User.by_first_name(:asc)
+  User.by_first_name(:desc)
 
 = Boolean columns
 

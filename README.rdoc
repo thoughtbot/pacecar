@@ -11,6 +11,7 @@ Assuming a database schema and simple model declaration...
       create_table :users, :force => true do |t|
         t.boolean :admin, :default => false, :null => false
         t.datetime :approved_at
+        t.datetime :rejected_at
         t.first_name :string
       end
       create_table :posts, :force => true do |t|
@@ -87,6 +88,12 @@ Records with certain year, month or day...
   User.approved_at_in_year(2000)
   User.approved_at_in_month(01)
   User.approved_at_in_day(01)
+
+Records with a duration of, over or under a certain number of days...
+
+  User.duration_between(:approved_at, :rejected_at).with_duration_of(14)
+  User.duration_between(:approved_at, :rejected_at).with_duration_over(14)
+  User.duration_between(:approved_at, :rejected_at).with_duration_under(14)
 
 = Polymorphic relationships
 

@@ -5,6 +5,7 @@ class CreateSchema < ActiveRecord::Migration
     create_table :users, :force => true do |t|
       t.boolean :admin, :default => false, :null => false
       t.datetime :created_at
+      t.datetime :updated_at
       t.string :first_name
     end
     create_table :posts, :force => true do |t|

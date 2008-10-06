@@ -54,6 +54,10 @@ Records ordered by first_name (default to 'asc', can specify to override)...
   User.by_first_name(:asc)
   User.by_first_name(:desc)
 
+Records where an attribute matches a search term (column LIKE "%term%")...
+
+  User.first_name_matches('John')
+
 = Boolean columns
 
 Records that are all admins or non-admins...

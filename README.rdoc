@@ -10,7 +10,7 @@ Assuming a database schema and simple model declaration...
     def self.up
       create_table :users, :force => true do |t|
         t.boolean :admin, :default => false
-        t.datetime :created_at
+        t.datetime :approved_at
       end
     end
   end
@@ -19,12 +19,19 @@ Assuming a database schema and simple model declaration...
     include Pacecar
   end
 
-That scenario yields these named_scope methods...
-  
-  class User < ActiveRecord::Base
-    named_scope :admin, :conditions => { :admin => true }
-    named_scope :not_admin, :conditions => { :admin => false }
+...which yields a number of named scope methods.
 
-    named_scope :created_at, :conditions => 'created_at is not null'
-    named_scope :not_created_at, :conditions => 'created_at is null'
-  end
+Records that are all admins or non-admins...
+
+  User.admin
+  User.not_admin
+
+Records where approved_at is not null, or where it is null...
+
+  User.approved_at
+  User.not_approved_at
+
+Records approved before or after certain times...
+
+  User.approved_at_before(5.days.ago)
+  User.approved_at_after(4.weeks.ago)

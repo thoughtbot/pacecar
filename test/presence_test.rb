@@ -8,18 +8,18 @@ class PresenceTest < Test::Unit::TestCase
     end
     context "with presence methods" do
       should "respond to _present datetime column method" do
-        assert @class.respond_to? :created_at_present
+        assert @class.respond_to? :first_name_present
       end
       should "set correct proxy options for _present column method" do
-        proxy_options = { :conditions => 'created_at is not null' }
-        assert_equal proxy_options, @class.created_at_present.proxy_options
+        proxy_options = { :conditions => 'first_name is not null' }
+        assert_equal proxy_options, @class.first_name_present.proxy_options
       end
       should "respond to _missing column method" do
-        assert @class.respond_to? :created_at_missing
+        assert @class.respond_to? :first_name_missing
       end
       should "set correct proxy options for _missing column method" do
-        proxy_options = { :conditions => 'created_at is null' }
-        assert_equal proxy_options, @class.created_at_missing.proxy_options
+        proxy_options = { :conditions => 'first_name is null' }
+        assert_equal proxy_options, @class.first_name_missing.proxy_options
       end
     end
   end

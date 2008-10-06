@@ -58,6 +58,11 @@ Records with approved_at in the past or future
   User.approved_at_in_past
   User.approved_at_in_future
 
+Records with approved_at inside or outside of two times
+
+  User.approved_at_inside(10.days.ago, 1.day.ago)
+  User.approved_at_outside(2.days.ago, 1.day.ago)
+
 = Named scopes
 
 Because these are all named_scope, you can combine them.

@@ -45,6 +45,26 @@ class DatetimeTest < Test::Unit::TestCase
         assert_equal proxy_options, @class.created_at_in_future.proxy_options
       end
     end
+    context "with _inside and _outside methods" do
+      setup do
+        @start = 3.days.ago
+        @stop = 2.days.ago
+      end
+      should "respond to _inside datetime column method" do
+        assert @class.respond_to? :created_at_inside
+      end
+      should "set correct proxy options for _inside datetime column method" do
+        proxy_options = { :conditions => ['created_at > ? and created_at < ?', @start, @stop] }
+        assert_equal proxy_options, @class.created_at_inside(@start, @stop).proxy_options
+      end
+      should "respond to _outside datetime column method" do
+        assert @class.respond_to? :created_at_outside
+      end
+      should "set correct proxy options for _in_future datetime column method" do
+        proxy_options = { :conditions => ['created_at < ? and created_at > ?', @start, @stop] }
+        assert_equal proxy_options, @class.created_at_outside(@start, @stop).proxy_options
+      end
+    end
   end
 
 end

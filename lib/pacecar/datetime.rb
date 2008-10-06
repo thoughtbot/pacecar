@@ -15,17 +15,23 @@ module Pacecar
         datetime_column_names.each do |name|
           define_before_after_scopes(name)
           define_past_future_scopes(name)
+          define_inside_outside_scopes(name)
         end
       end
 
       def define_before_after_scopes(name)
-        named_scope "#{name}_before".to_sym,  lambda { |time| { :conditions => ["#{name} < ?", time] } }
-        named_scope "#{name}_after".to_sym,   lambda { |time| { :conditions => ["#{name} > ?", time] } }
+        named_scope "#{name}_before".to_sym, lambda { |time| { :conditions => ["#{name} < ?", time] } }
+        named_scope "#{name}_after".to_sym, lambda { |time| { :conditions => ["#{name} > ?", time] } }
       end
 
       def define_past_future_scopes(name)
-        named_scope "#{name}_in_past",    lambda { { :conditions => ["#{name} < ?", Time.now] } }
-        named_scope "#{name}_in_future",  lambda { { :conditions => ["#{name} > ?", Time.now] } }
+        named_scope "#{name}_in_past", lambda { { :conditions => ["#{name} < ?", Time.now] } }
+        named_scope "#{name}_in_future", lambda { { :conditions => ["#{name} > ?", Time.now] } }
+      end
+
+      def define_inside_outside_scopes(name)
+        named_scope "#{name}_inside".to_sym, lambda { |start, stop| { :conditions => ["#{name} > ? and #{name} < ?", start, stop] } }
+        named_scope "#{name}_outside".to_sym, lambda { |start, stop| { :conditions => ["#{name} < ? and #{name} > ?", start, stop] } }
       end
 
       def datetime_column_names

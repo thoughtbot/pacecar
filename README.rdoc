@@ -1,0 +1,30 @@
+== Pacecar
+
+Pacecar adds named_scope methods to ActiveRecord classes via database column introspection.
+
+== Usage
+
+Assuming a database schema and simple model declaration...
+
+  class CreateSchema < ActiveRecord::Migration
+    def self.up
+      create_table :users, :force => true do |t|
+        t.boolean :admin, :default => false
+        t.datetime :created_at
+      end
+    end
+  end
+  
+  class User < ActiveRecord::Base
+    include Pacecar
+  end
+
+That scenario yields these named_scope methods...
+  
+  class User < ActiveRecord::Base
+    named_scope :admin, :conditions => { :admin => true }
+    named_scope :not_admin, :conditions => { :admin => false }
+
+    named_scope :created_at, :conditions => 'created_at is not null'
+    named_scope :not_created_at, :conditions => 'created_at is null'
+  end

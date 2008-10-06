@@ -15,14 +15,14 @@ module Pacecar
       protected
 
       def define_boolean_scopes
-        boolean_columns.each do |column|
-          named_scope column.to_sym, :conditions => { column.to_sym => true }
-          named_scope "not_#{column}".to_sym, :conditions => { column.to_sym => false }
+        boolean_column_names.each do |name|
+          named_scope name.to_sym, :conditions => { name.to_sym => true }
+          named_scope "not_#{name}".to_sym, :conditions => { name.to_sym => false }
         end
       end
 
-      def boolean_columns
-        columns_of_type :boolean
+      def boolean_column_names
+        column_names_for_type :boolean
       end
 
     end

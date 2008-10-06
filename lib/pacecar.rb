@@ -1,5 +1,6 @@
 require 'pacecar/boolean'
 require 'pacecar/datetime'
+require 'pacecar/presence'
 
 module Pacecar
 
@@ -8,13 +9,17 @@ module Pacecar
       extend ClassMethods
       include Pacecar::Boolean
       include Pacecar::Datetime
+      include Pacecar::Presence
     end
   end
 
   module ClassMethods
     protected
-    def columns_of_type(*types)
+    def column_names_for_type(*types)
       columns.select { |column| types.include? column.type }.collect(&:name)
+    end
+    def column_names
+      columns.collect(&:name)
     end
   end
 

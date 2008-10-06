@@ -12,30 +12,24 @@ module Pacecar
       protected
 
       def define_datetime_scopes
-        datetime_columns.each do |column|
-          define_presence_scopes(column)
-          define_before_after_scopes(column)
-          define_past_future_scopes(column)
+        datetime_column_names.each do |name|
+          define_before_after_scopes(name)
+          define_past_future_scopes(name)
         end
       end
 
-      def define_presence_scopes(column)
-        named_scope column.to_sym,          :conditions => "#{column} is not null"
-        named_scope "not_#{column}".to_sym, :conditions => "#{column} is null"
+      def define_before_after_scopes(name)
+        named_scope "#{name}_before".to_sym,  lambda { |time| { :conditions => ["#{name} < ?", time] } }
+        named_scope "#{name}_after".to_sym,   lambda { |time| { :conditions => ["#{name} > ?", time] } }
       end
 
-      def define_before_after_scopes(column)
-        named_scope "#{column}_before".to_sym,  lambda { |time| { :conditions => ["#{column} < ?", time] } }
-        named_scope "#{column}_after".to_sym,   lambda { |time| { :conditions => ["#{column} > ?", time] } }
+      def define_past_future_scopes(name)
+        named_scope "#{name}_in_past",    lambda { { :conditions => ["#{name} < ?", Time.now] } }
+        named_scope "#{name}_in_future",  lambda { { :conditions => ["#{name} > ?", Time.now] } }
       end
 
-      def define_past_future_scopes(column)
-        named_scope "#{column}_in_past",    lambda { { :conditions => ["#{column} < ?", Time.now] } }
-        named_scope "#{column}_in_future",  lambda { { :conditions => ["#{column} > ?", Time.now] } }
-      end
-
-      def datetime_columns
-        columns_of_type :datetime
+      def datetime_column_names
+        column_names_for_type :datetime
       end
 
     end

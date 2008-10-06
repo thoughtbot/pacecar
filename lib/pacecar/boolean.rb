@@ -9,8 +9,10 @@ module Pacecar
     module ClassMethods
 
       def self.extended(base)
-        base.define_boolean_scopes
+        base.send :define_boolean_scopes
       end
+
+      protected
 
       def define_boolean_scopes
         boolean_columns.each do |column|
@@ -18,8 +20,6 @@ module Pacecar
           named_scope "not_#{column}".to_sym, :conditions => { column.to_sym => false }
         end
       end
-
-      protected
 
       def boolean_columns
         columns_of_type :boolean

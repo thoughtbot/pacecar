@@ -9,8 +9,10 @@ module Pacecar
     module ClassMethods
 
       def self.extended(base)
-        base.define_datetime_scopes
+        base.send :define_datetime_scopes
       end
+
+      protected
 
       def define_datetime_scopes
         datetime_columns.each do |column|
@@ -24,8 +26,6 @@ module Pacecar
           }
         end
       end
-
-      protected
 
       def datetime_columns
         columns_of_type :datetime

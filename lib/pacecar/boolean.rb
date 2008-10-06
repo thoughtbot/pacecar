@@ -1,13 +1,10 @@
 module Pacecar
-
   module Boolean
-
     def self.included(base)
       base.extend ClassMethods
     end
 
     module ClassMethods
-
       def self.extended(base)
         base.send :define_boolean_scopes
       end
@@ -26,7 +23,5 @@ module Pacecar
       end
 
     end
-
   end
-
 end

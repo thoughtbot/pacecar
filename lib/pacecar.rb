@@ -3,7 +3,6 @@ require 'pacecar/datetime'
 require 'pacecar/presence'
 
 module Pacecar
-
   def self.included(base)
     base.class_eval do
       extend ClassMethods
@@ -22,5 +21,4 @@ module Pacecar
       columns.collect(&:name)
     end
   end
-
 end

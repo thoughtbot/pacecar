@@ -35,3 +35,8 @@ Records approved before or after certain times...
 
   User.approved_at_before(5.days.ago)
   User.approved_at_after(4.weeks.ago)
+
+Records with approved_at in the past or future
+
+  User.approved_at_in_past
+  User.approved_at_in_future

@@ -7,21 +7,22 @@ class DatetimeTest < Test::Unit::TestCase
       @class = User
     end
     context "with before and after methods" do
+      setup do
+        @time = 5.days.ago
+      end
       should "respond to _before datetime column method" do
         assert @class.respond_to? :created_at_before
       end
       should "set correct proxy options for _before datetime column method" do
-        time = 5.days.ago
-        proxy_options = { :conditions => ['created_at < ?', time] }
-        assert_equal proxy_options, @class.created_at_before(time).proxy_options
+        proxy_options = { :conditions => ['created_at < ?', @time] }
+        assert_equal proxy_options, @class.created_at_before(@time).proxy_options
       end
       should "respond to _after datetime column method" do
         assert @class.respond_to? :created_at_after
       end
       should "set correct proxy options for after_ datetime column method" do
-        time = 5.days.ago
-        proxy_options = { :conditions => ['created_at > ?', time] }
-        assert_equal proxy_options, @class.created_at_after(time).proxy_options
+        proxy_options = { :conditions => ['created_at > ?', @time] }
+        assert_equal proxy_options, @class.created_at_after(@time).proxy_options
       end
     end
     context "with in_past and in_future methods" do

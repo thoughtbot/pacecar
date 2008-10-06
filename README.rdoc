@@ -39,6 +39,10 @@ Records where first_name is not null, or where it is null...
   User.first_name_present
   User.first_name_missing
 
+Records ordered by first_name...
+
+  User.by_first_name
+
 = Boolean columns
 
 Records that are all admins or non-admins...
@@ -67,6 +71,6 @@ Records with approved_at inside or outside of two times
 
 Because these are all named_scope, you can combine them.
 
-To get all users that have a first_name set, who are admins and approved more than 2 weeks ago...
+To get all users that have a first_name set, who are admins and approved more than 2 weeks ago, ordered by their first name...
 
-  User.first_name_present.admin.approved_at_before(2.weeks.ago)
+  User.first_name_present.admin.approved_at_before(2.weeks.ago).by_first_name

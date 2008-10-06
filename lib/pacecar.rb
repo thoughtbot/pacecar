@@ -1,6 +1,7 @@
 require 'pacecar/boolean'
 require 'pacecar/datetime'
 require 'pacecar/presence'
+require 'pacecar/order'
 
 module Pacecar
   def self.included(base)
@@ -9,6 +10,7 @@ module Pacecar
       include Pacecar::Boolean
       include Pacecar::Datetime
       include Pacecar::Presence
+      include Pacecar::Order
     end
   end
 

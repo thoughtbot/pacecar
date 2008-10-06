@@ -17,6 +17,7 @@ Assuming a database schema and simple model declaration...
       create_table :posts, :force => true do |t|
         t.string :owner_type
         t.integer :owner_id
+        t.string :publication_state
       end
     end
   end
@@ -26,6 +27,7 @@ Assuming a database schema and simple model declaration...
     include Pacecar
   end
   class Post < ActiveRecord::Base
+    PUBLICATION_STATES = %w(Draft Submitted Rejected Accepted)
     belongs_to :owner, :polymorphic => true
     include Pacecar
   end
@@ -100,6 +102,15 @@ Records with a duration (time delta between two columns) of, over or under a cer
 Records which have an owner_type of User...
 
   Post.for_owner_type(User)
+
+= State columns
+
+Records which are in a particular state...
+
+  Post.publication_state_draft
+  Post.publication_state_submitted
+  Post.publication_state_accepted
+  Post.publication_state_rejected
 
 = Named scopes
 

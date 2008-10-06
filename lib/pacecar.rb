@@ -5,6 +5,7 @@ require 'pacecar/order'
 require 'pacecar/polymorph'
 require 'pacecar/presence'
 require 'pacecar/search'
+require 'pacecar/state'
 
 module Pacecar
   def self.included(base)
@@ -17,6 +18,7 @@ module Pacecar
       include Pacecar::Polymorph
       include Pacecar::Presence
       include Pacecar::Search
+      include Pacecar::State
     end
   end
 

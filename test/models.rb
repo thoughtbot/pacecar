@@ -11,6 +11,7 @@ class CreateSchema < ActiveRecord::Migration
     create_table :posts, :force => true do |t|
       t.string :owner_type
       t.integer :owner_id
+      t.string :publication_state
     end
   end
 end
@@ -22,6 +23,7 @@ class User < ActiveRecord::Base
   include Pacecar
 end
 class Post < ActiveRecord::Base
+  PUBLICATION_STATES = %w(Draft Submitted Rejected Accepted)
   belongs_to :owner, :polymorphic => true
   include Pacecar
 end

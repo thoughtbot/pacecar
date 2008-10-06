@@ -9,7 +9,7 @@ Assuming a database schema and simple model declaration...
   class CreateSchema < ActiveRecord::Migration
     def self.up
       create_table :users, :force => true do |t|
-        t.boolean :admin, :default => false
+        t.boolean :admin, :default => false, :null => false
         t.datetime :approved_at
         t.first_name :string
       end

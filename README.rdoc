@@ -63,6 +63,10 @@ Records where an attribute matches a search term (column LIKE "%term%")...
 
   User.first_name_matches('John')
 
+Records where any non-state text or string column matches term...
+
+  User.search_for('test')
+
 = Boolean columns
 
 Records that are all admins or non-admins...

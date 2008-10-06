@@ -7,6 +7,7 @@ class CreateSchema < ActiveRecord::Migration
       t.datetime :created_at
       t.datetime :updated_at
       t.string :first_name
+      t.string :last_name
     end
     create_table :posts, :force => true do |t|
       t.string :owner_type

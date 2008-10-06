@@ -12,6 +12,7 @@ class CreateSchema < ActiveRecord::Migration
       t.string :owner_type
       t.integer :owner_id
       t.string :publication_state
+      t.string :post_type
     end
   end
 end
@@ -24,6 +25,7 @@ class User < ActiveRecord::Base
 end
 class Post < ActiveRecord::Base
   PUBLICATION_STATES = %w(Draft Submitted Rejected Accepted)
+  POST_TYPES = %w(Free Open Private Anonymous PostModern)
   belongs_to :owner, :polymorphic => true
   include Pacecar
 end

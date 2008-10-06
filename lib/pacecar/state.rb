@@ -21,7 +21,7 @@ module Pacecar
       end
 
       def state_column_names
-        column_names.select { |name| name =~ /_state/ && local_constants.include?(name.pluralize.upcase) }
+        column_names.select { |name| name =~ /_(state|type)/ && local_constants.include?(name.pluralize.upcase) }
       end
 
     end

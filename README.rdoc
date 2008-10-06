@@ -105,12 +105,10 @@ Records which have an owner_type of User...
 
 = State columns
 
-Records which are in a particular state...
+Records which are in a particular state, or not in a state...
 
   Post.publication_state_draft
-  Post.publication_state_submitted
-  Post.publication_state_accepted
-  Post.publication_state_rejected
+  Post.publication_state_not_draft
 
 = Named scopes
 

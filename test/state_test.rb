@@ -13,6 +13,10 @@ class StateTest < Test::Unit::TestCase
       proxy_options = { :conditions => ['publication_state = ?', 'Draft'] }
       assert_equal proxy_options, @class.publication_state_draft.proxy_options
     end
+    should "set correct proxy options for column_not_state method" do
+      proxy_options = { :conditions => ['publication_state <> ?', 'Draft'] }
+      assert_equal proxy_options, @class.publication_state_not_draft.proxy_options
+    end
   end
 
 end

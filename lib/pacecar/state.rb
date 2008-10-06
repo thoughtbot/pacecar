@@ -15,6 +15,7 @@ module Pacecar
         state_column_names.each do |name|
           const_get(name.pluralize.upcase).each do |state|
             named_scope "#{name}_#{state.downcase}".to_sym, :conditions => ["#{name} = ?", state]
+            named_scope "#{name}_not_#{state.downcase}".to_sym, :conditions => ["#{name} <> ?", state]
           end
         end
       end

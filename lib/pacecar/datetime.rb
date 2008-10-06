@@ -18,7 +18,6 @@ module Pacecar
           define_inside_outside_scopes(name)
           define_in_date_scopes(name)
         end
-        define_duration_scopes
       end
 
       def define_before_after_scopes(name)
@@ -40,13 +39,6 @@ module Pacecar
         named_scope "#{name}_in_year".to_sym, lambda { |year| { :conditions => ["year(#{name}) = ?", year] } }
         named_scope "#{name}_in_month".to_sym, lambda { |month| { :conditions => ["month(#{name}) = ?", month] } }
         named_scope "#{name}_in_day".to_sym, lambda { |day| { :conditions => ["day(#{name}) = ?", day] } }
-      end
-
-      def define_duration_scopes
-        named_scope :duration_between, lambda { |start, stop| { :select => "datediff(#{start}, #{stop}) as duration" } }
-        named_scope :with_duration_of, lambda { |duration| { :conditions => ['duration = ?', duration] } }
-        named_scope :with_duration_over, lambda { |duration| { :conditions => ['duration >= ?', duration] } }
-        named_scope :with_duration_under, lambda { |duration| { :conditions => ['duration <= ?', duration] } }
       end
 
       def datetime_column_names

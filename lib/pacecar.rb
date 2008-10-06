@@ -2,6 +2,7 @@ require 'pacecar/boolean'
 require 'pacecar/datetime'
 require 'pacecar/presence'
 require 'pacecar/order'
+require 'pacecar/polymorph'
 
 module Pacecar
   def self.included(base)
@@ -11,6 +12,7 @@ module Pacecar
       include Pacecar::Datetime
       include Pacecar::Presence
       include Pacecar::Order
+      include Pacecar::Polymorph
     end
   end
 

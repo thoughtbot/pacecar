@@ -7,11 +7,20 @@ class CreateSchema < ActiveRecord::Migration
       t.datetime :created_at
       t.string :first_name
     end
+    create_table :posts, :force => true do |t|
+      t.string :owner_type
+      t.integer :owner_id
+    end
   end
 end
 
 CreateSchema.suppress_messages { CreateSchema.migrate(:up) }
 
 class User < ActiveRecord::Base
+  has_many :posts, :as => :owner
+  include Pacecar
+end
+class Post < ActiveRecord::Base
+  belongs_to :owner, :polymorphic => true
   include Pacecar
 end

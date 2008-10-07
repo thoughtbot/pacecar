@@ -138,3 +138,7 @@ Because these are all named_scope, you can combine them.
 To get all users that have a first_name set, who are admins and approved more than 2 weeks ago, ordered by their first name...
 
   User.first_name_present.admin.approved_at_before(2.weeks.ago).by_first_name
+
+= License
+
+Pacecar is free software, and may be redistributed under the terms specified in the MIT-LICENSE file.

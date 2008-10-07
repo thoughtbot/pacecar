@@ -14,7 +14,7 @@ module Pacecar
       def define_polymorph_scopes
         polymorph_column_names.each do |name|
           named_scope "for_#{name}_type".to_sym, lambda { |type|
-            { :conditions => { "#{name}_type".to_sym => type.to_s } }
+            { :conditions => ["#{quoted_table_name}.#{name}_type = ?", type.to_s] }
           }
         end
       end

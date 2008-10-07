@@ -14,7 +14,7 @@ class DurationTest < Test::Unit::TestCase
         assert @class.respond_to? :duration_between
       end
       should "set the correct proxy options for a duration_between datetime column method" do
-        proxy_options = { :select => 'datediff(created_at, updated_at) as duration' }
+        proxy_options = { :select => 'datediff("users".created_at, "users".updated_at) as duration' }
         assert_equal proxy_options, @class.duration_between(:created_at, :updated_at).proxy_options
       end
       should "set the correct proxy options for a with_duration_of datetime column method" do

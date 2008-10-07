@@ -11,11 +11,11 @@ class PolymorphTest < Test::Unit::TestCase
         assert @class.respond_to? :for_owner_type
       end
       should "set the correct proxy options on a _for column method with Class" do
-        proxy_options = { :conditions => { :owner_type => 'User' } }
+        proxy_options = { :conditions => ['"posts".owner_type = ?', 'User'] }
         assert_equal proxy_options, @class.for_owner_type(User).proxy_options
       end
       should "set the correct proxy options on a _for column method with String" do
-        proxy_options = { :conditions => { :owner_type => 'User' } }
+        proxy_options = { :conditions => ['"posts".owner_type = ?', 'User'] }
         assert_equal proxy_options, @class.for_owner_type('User').proxy_options
       end
     end

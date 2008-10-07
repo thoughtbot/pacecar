@@ -12,10 +12,18 @@ module Pacecar
       protected
 
       def define_duration_scopes
-        named_scope :duration_between, lambda { |start, stop| { :select => "datediff(#{start}, #{stop}) as duration" } }
-        named_scope :with_duration_of, lambda { |duration| { :conditions => ['duration = ?', duration] } }
-        named_scope :with_duration_over, lambda { |duration| { :conditions => ['duration >= ?', duration] } }
-        named_scope :with_duration_under, lambda { |duration| { :conditions => ['duration <= ?', duration] } }
+        named_scope :duration_between, lambda { |start, stop|
+          { :select => "datediff(#{quoted_table_name}.#{start}, #{quoted_table_name}.#{stop}) as duration" }
+        }
+        named_scope :with_duration_of, lambda { |duration|
+          { :conditions => ['duration = ?', duration] }
+        }
+        named_scope :with_duration_over, lambda { |duration|
+          { :conditions => ['duration >= ?', duration] }
+        }
+        named_scope :with_duration_under, lambda { |duration|
+          { :conditions => ['duration <= ?', duration] }
+        }
       end
 
     end

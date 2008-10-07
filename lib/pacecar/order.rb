@@ -13,14 +13,14 @@ module Pacecar
 
       def define_order_scopes
         column_names.each do |name|
-          named_scope "by_#{name}".to_sym, lambda { |*direction|
-            { :order => "#{name} #{direction_for_scope(direction.flatten.first)}" }
+          named_scope "by_#{name}".to_sym, lambda { |*args|
+            { :order => "#{quoted_table_name}.#{name} #{direction_for_scope(args)}" }
           }
         end
       end
 
-      def direction_for_scope(direction)
-        direction || 'asc'
+      def direction_for_scope(args)
+        args.flatten.first || 'asc'
       end
 
     end

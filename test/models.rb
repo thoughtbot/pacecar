@@ -4,10 +4,11 @@ class CreateSchema < ActiveRecord::Migration
   def self.up
     create_table :users, :force => true do |t|
       t.boolean :admin, :default => false, :null => false
-      t.datetime :created_at
-      t.datetime :updated_at
+      t.datetime :approved_at
+      t.datetime :rejected_at
       t.string :first_name
       t.string :last_name
+      t.timestamps
     end
     create_table :posts, :force => true do |t|
       t.string :owner_type
@@ -22,11 +23,12 @@ CreateSchema.suppress_messages { CreateSchema.migrate(:up) }
 
 class User < ActiveRecord::Base
   has_many :posts, :as => :owner
-  include Pacecar
 end
 class Post < ActiveRecord::Base
   PUBLICATION_STATES = %w(Draft Submitted Rejected Accepted)
-  POST_TYPES = %w(Free Open Private Anonymous PostModern)
+  TYPES = %w(Free Open Private Anonymous PostModern)
   belongs_to :owner, :polymorphic => true
-  include Pacecar
+  scopes_state :publication_state
+  scopes_state :post_type, :with => TYPES
+  scopes_polymorph :owner
 end

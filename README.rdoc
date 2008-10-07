@@ -104,9 +104,9 @@ Records with certain year, month or day...
 
 Records with a duration (time delta between two columns) of, over or under a certain number of days...
 
-  User.duration_between(:approved_at, :rejected_at).with_duration_of(14)
-  User.duration_between(:approved_at, :rejected_at).with_duration_over(14)
-  User.duration_between(:approved_at, :rejected_at).with_duration_under(14)
+  User.with_duration_of(14, :approved_at, :rejected_at)
+  User.with_duration_over(14, :approved_at, :rejected_at)
+  User.with_duration_under(14, :approved_at, :rejected_at)
 
 = Polymorphic relationships
 

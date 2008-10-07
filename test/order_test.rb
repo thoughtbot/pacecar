@@ -7,18 +7,18 @@ class OrderTest < Test::Unit::TestCase
       @class = User
     end
     context "with order methods" do
-      should "respond to by_ datetime column method" do
+      should "respond to a by_ datetime column method" do
         assert @class.respond_to? :by_first_name
       end
-      should "set correct proxy options for by_ column method with no args" do
+      should "set the correct proxy options for a by_ column method with no args" do
         proxy_options = { :order => 'first_name asc' }
         assert_equal proxy_options, @class.by_first_name.proxy_options
       end
-      should "set correct proxy options for by_ column method with asc args" do
+      should "set the correct proxy options for a by_ column method with asc args" do
         proxy_options = { :order => 'first_name asc' }
         assert_equal proxy_options, @class.by_first_name(:asc).proxy_options
       end
-      should "set correct proxy options for by_ column method with desc args" do
+      should "set the correct proxy options for a by_ column method with desc args" do
         proxy_options = { :order => 'first_name desc' }
         assert_equal proxy_options, @class.by_first_name(:desc).proxy_options
       end

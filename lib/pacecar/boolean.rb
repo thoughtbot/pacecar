@@ -13,8 +13,8 @@ module Pacecar
 
       def define_boolean_scopes
         boolean_column_names.each do |name|
-          named_scope name.to_sym, :conditions => { name.to_sym => true }
-          named_scope "not_#{name}".to_sym, :conditions => { name.to_sym => false }
+          named_scope name.to_sym, :conditions => ["#{name} = ?", true]
+          named_scope "not_#{name}".to_sym, :conditions => ["#{name} = ?", false]
         end
       end
 

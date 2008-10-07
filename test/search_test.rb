@@ -23,8 +23,13 @@ class SearchTest < Test::Unit::TestCase
     end
     should "set the correct proxy options for a search_for method" do
       assert @class.respond_to? :search_for
-      proxy_options = { :conditions => ['"users".first_name like :query or "users".last_name like :query', { :query => "%test%" }] }
+      proxy_options = { :conditions => ['"users".first_name like :query or "users".last_name like :query or "users".description like :query', { :query => "%test%" }] }
       assert_equal proxy_options, @class.search_for('test').proxy_options
+    end
+    should "set the correct proxy options for a search_for method with :on option" do
+      assert @class.respond_to? :search_for
+      proxy_options = { :conditions => ['"users".first_name like :query or "users".description like :query', { :query => "%test%" }] }
+      assert_equal proxy_options, @class.search_for('test', :on => [:first_name, :description]).proxy_options
     end
   end
 

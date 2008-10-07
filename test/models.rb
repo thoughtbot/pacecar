@@ -8,6 +8,7 @@ class CreateSchema < ActiveRecord::Migration
       t.datetime :rejected_at
       t.string :first_name
       t.string :last_name
+      t.text :description
       t.timestamps
     end
     create_table :posts, :force => true do |t|

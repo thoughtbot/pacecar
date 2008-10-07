@@ -27,9 +27,12 @@ module Pacecar
       end
 
       def define_basic_search_scope
-        matcher = non_state_text_and_string_columns.collect { |name| "#{quoted_table_name}.#{name} like :query" }.join(" or ")
-        named_scope :search_for, lambda { |query|
-          { :conditions => [matcher, { :query => "%#{query}%" } ] }
+        named_scope :search_for, lambda { |*args|
+          opts = args.extract_options!
+          query = args.flatten.first
+          columns = opts[:on] || non_state_text_and_string_columns
+          match = columns.collect { |name| "#{quoted_table_name}.#{name} like :query" }.join(" or ")
+          { :conditions => [match, { :query => "%#{query}%" } ] }
         }
       end
 

@@ -14,6 +14,7 @@ Assuming a database schema and simple model declaration...
         t.datetime :rejected_at
         t.string :first_name
         t.string :last_name
+        t.text :description
         t.timestamps
       end
       create_table :posts, :force => true do |t|
@@ -75,6 +76,10 @@ Records where an attribute starts or ends with a search term...
 Records where any non-state text or string column matches term...
 
   User.search_for('test')
+
+Records where only certain columns match the term...
+
+  User.search_for 'test', :on => [:first_name, :last_name]
 
 = Boolean columns
 

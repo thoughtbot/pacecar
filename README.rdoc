@@ -81,6 +81,10 @@ Records where any of a list of columns match the term...
 
   User.search_for 'test', :on => [:first_name, :last_name]
 
+Records where all of a list of columns match the term...
+
+  User.search_for 'test', :on => [:first_name, :last_name], :require => :all
+
 = Boolean columns
 
 Records that are all admins or non-admins...

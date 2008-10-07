@@ -31,7 +31,8 @@ module Pacecar
           opts = args.extract_options!
           query = args.flatten.first
           columns = opts[:on] || non_state_text_and_string_columns
-          match = columns.collect { |name| "#{quoted_table_name}.#{name} like :query" }.join(" or ")
+          joiner = opts[:require].eql?(:all) ? 'and' : 'or'
+          match = columns.collect { |name| "#{quoted_table_name}.#{name} like :query" }.join(" #{joiner} ")
           { :conditions => [match, { :query => "%#{query}%" } ] }
         }
       end

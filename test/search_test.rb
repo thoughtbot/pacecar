@@ -31,6 +31,11 @@ class SearchTest < Test::Unit::TestCase
       proxy_options = { :conditions => ['"users".first_name like :query or "users".description like :query', { :query => "%test%" }] }
       assert_equal proxy_options, @class.search_for('test', :on => [:first_name, :description]).proxy_options
     end
+    should "set the correct proxy options for a search_for method with an :require option" do
+      assert @class.respond_to? :search_for
+      proxy_options = { :conditions => ['"users".first_name like :query and "users".last_name like :query and "users".description like :query', { :query => "%test%" }] }
+      assert_equal proxy_options, @class.search_for('test', :require => :all).proxy_options
+    end
   end
 
   context "A class which has included Pacecar but which has nothing to search" do

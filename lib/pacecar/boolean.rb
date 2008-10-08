@@ -18,10 +18,6 @@ module Pacecar
         end
       end
 
-      def boolean_column_names
-        column_names_for_type :boolean
-      end
-
     end
   end
 end

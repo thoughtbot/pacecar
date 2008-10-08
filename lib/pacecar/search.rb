@@ -37,14 +37,6 @@ module Pacecar
         }
       end
 
-      def text_and_string_column_names
-        column_names_for_type :text, :string
-      end
-
-      def non_state_text_and_string_columns
-        text_and_string_column_names.reject { |name| name =~ /_(type|state)/ }
-      end
-
     end
   end
 end

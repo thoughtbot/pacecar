@@ -59,10 +59,6 @@ module Pacecar
         }
       end
 
-      def datetime_column_names
-        column_names_for_type :datetime
-      end
-
     end
   end
 end

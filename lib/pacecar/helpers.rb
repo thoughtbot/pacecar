@@ -20,6 +20,10 @@ module Pacecar
         columns.select { |column| types.include? column.type }.collect(&:name)
       end
 
+      def column_names_without_type(*types)
+        columns.select { |column| ! types.include? column.type }.collect(&:name)
+      end
+
       def boolean_column_names
         column_names_for_type :boolean
       end

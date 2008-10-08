@@ -55,11 +55,6 @@ And some basic model declarations...
 
 = All columns
 
-Records where admin is not null, or where it is null...
-
-  User.admin_present
-  User.admin_missing
-
 Records where approved_at is not null, or where it is null...
 
   User.approved_at_present

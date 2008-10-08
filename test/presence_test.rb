@@ -17,6 +17,10 @@ class PresenceTest < Test::Unit::TestCase
         proxy_options = { :conditions => '"users".first_name is null' }
         assert_equal proxy_options, @class.first_name_missing.proxy_options
       end
+      should "not setup methods for boolean columns" do
+        assert ! @class.respond_to?(:admin_missing)
+        assert ! @class.respond_to?(:admin_present)
+      end
     end
   end
 

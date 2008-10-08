@@ -13,7 +13,7 @@ module Pacecar
 
       def define_limit_scopes
         named_scope :limited, lambda { |*args|
-          { :limit => args.flatten.first || (defined?(per_page) ? per_page : 10) }
+          { :limit => args.flatten.first || (defined?(per_page) ? per_page : Pacecar::Helpers.options[:default_limit]) }
         }
       end
 

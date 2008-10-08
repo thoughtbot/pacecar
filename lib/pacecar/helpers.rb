@@ -3,7 +3,8 @@ module Pacecar
 
     mattr_accessor :options
     self.options = {
-      :state_pattern => /_(type|state)$/i
+      :state_pattern => /_(type|state)$/i,
+      :default_limit => 10
     }
 
     def self.included(base)

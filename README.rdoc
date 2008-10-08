@@ -4,7 +4,7 @@ Pacecar adds named_scope methods to ActiveRecord classes via database column int
 
 == Usage
 
-Assuming a database schema and simple model declaration...
+Assuming a database schema...
 
   class CreateSchema < ActiveRecord::Migration
     def self.up
@@ -22,12 +22,22 @@ Assuming a database schema and simple model declaration...
         t.integer :owner_id
         t.string :publication_state
         t.string :post_type
+        t.timestamps
+      end
+      create_table :comments, :force => true do |t|
+        t.integer :user_id
+        t.text :description
+        t.timestamps
       end
     end
   end
 
+And some basic model declarations...
+
   class User < ActiveRecord::Base
     has_many :posts, :as => :owner
+    has_many :comments
+    scopes_ranking :comments
   end
 
   class Post < ActiveRecord::Base
@@ -39,7 +49,9 @@ Assuming a database schema and simple model declaration...
     scopes_polymorph :owner
   end
 
-...which yields a number of named scope methods.
+  class Comment < ActiveRecord::Base
+    belongs_to :user
+  end
 
 = All columns
 
@@ -127,6 +139,13 @@ Records which have an owner_type of User...
 
   Post.for_owner_type(User)
 
+= Associations
+
+Records with the most and least associated records...
+
+  User.maximum_comments
+  User.minimum_comments
+
 = State columns
 
 Records which are in a particular state, or not in a state...
@@ -147,6 +166,10 @@ Because these are all named_scope, you can combine them.
 To get all users that have a first_name set, who are admins and approved more than 2 weeks ago, ordered by their first name...
 
   User.first_name_present.admin.approved_at_before(2.weeks.ago).by_first_name
+
+To get the top 10 commenters...
+
+  User.maximim_comments.limited(10)
 
 = License
 

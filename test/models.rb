@@ -16,6 +16,12 @@ class CreateSchema < ActiveRecord::Migration
       t.integer :owner_id
       t.string :publication_state
       t.string :post_type
+      t.timestamps
+    end
+    create_table :comments, :force => true do |t|
+      t.integer :user_id
+      t.text :description
+      t.timestamps
     end
   end
 end
@@ -24,6 +30,8 @@ CreateSchema.suppress_messages { CreateSchema.migrate(:up) }
 
 class User < ActiveRecord::Base
   has_many :posts, :as => :owner
+  has_many :comments
+  scopes_ranking :comments
 end
 class Post < ActiveRecord::Base
   PUBLICATION_STATES = %w(Draft Submitted Rejected Accepted)
@@ -32,4 +40,7 @@ class Post < ActiveRecord::Base
   scopes_state :publication_state
   scopes_state :post_type, :with => TYPES
   scopes_polymorph :owner
+end
+class Comment < ActiveRecord::Base
+  belongs_to :user
 end

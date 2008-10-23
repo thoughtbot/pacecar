@@ -13,16 +13,24 @@ module Pacecar
 
     module ClassMethods
 
+      def safe_columns
+        begin
+          columns
+        rescue ActiveRecord::StatementInvalid # If the table does not exist
+          Array.new
+        end
+      end
+
       def column_names
-        columns.collect(&:name)
+        safe_columns.collect(&:name)
       end
 
       def column_names_for_type(*types)
-        columns.select { |column| types.include? column.type }.collect(&:name)
+        safe_columns.select { |column| types.include? column.type }.collect(&:name)
       end
 
       def column_names_without_type(*types)
-        columns.select { |column| ! types.include? column.type }.collect(&:name)
+        safe_columns.select { |column| ! types.include? column.type }.collect(&:name)
       end
 
       def boolean_column_names

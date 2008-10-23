@@ -44,3 +44,5 @@ end
 class Comment < ActiveRecord::Base
   belongs_to :user
 end
+class Article < ActiveRecord::Base
+end

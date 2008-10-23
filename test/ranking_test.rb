@@ -8,7 +8,7 @@ class RankingTest < Test::Unit::TestCase
     end
     context "with association methods" do
       should "set the correct proxy options on a maximum_ column method" do
-        assert @class.respond_to? :maximum_comments
+        assert @class.respond_to?(:maximum_comments)
         proxy_options = {
           :select => '"users".*, count("users".id) as comments_count',
           :joins => 'inner join comments on comments.user_id = "users".id',
@@ -18,7 +18,7 @@ class RankingTest < Test::Unit::TestCase
         assert_equal proxy_options, @class.maximum_comments.proxy_options
       end
       should "set the correct proxy options on a minimum_ column method" do
-        assert @class.respond_to? :minimum_comments
+        assert @class.respond_to?(:minimum_comments)
         proxy_options = {
           :select => '"users".*, count("users".id) as comments_count',
           :joins => 'inner join comments on comments.user_id = "users".id',

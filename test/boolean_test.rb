@@ -7,12 +7,12 @@ class BooleanTest < Test::Unit::TestCase
       @class = User
     end
     should "set the correct proxy options for a boolean column method" do
-      assert @class.respond_to? :admin
+      assert @class.respond_to?(:admin)
       proxy_options = { :conditions => ['"users".admin = ?', true] }
       assert_equal proxy_options, @class.admin.proxy_options
     end
     should "set the correct proxy options for a not_ boolean column method" do
-      assert @class.respond_to? :not_admin
+      assert @class.respond_to?(:not_admin)
       proxy_options = { :conditions => ['"users".admin = ?', false] }
       assert_equal proxy_options, @class.not_admin.proxy_options
     end

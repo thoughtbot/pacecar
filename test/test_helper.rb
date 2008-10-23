@@ -8,3 +8,4 @@ require 'shoulda'
 require 'mocha'
 require 'pacecar'
 require 'models'
+begin require 'redgreen'; rescue LoadError; end

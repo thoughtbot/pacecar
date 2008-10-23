@@ -13,6 +13,8 @@ module Pacecar
 
     module ClassMethods
 
+      protected
+
       def safe_columns
         begin
           columns

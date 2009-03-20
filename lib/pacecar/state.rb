@@ -13,6 +13,14 @@ module Pacecar
           constant.each do |state|
             named_scope "#{name}_#{state.downcase}".to_sym, :conditions => ["#{quoted_table_name}.#{name} = ?", state]
             named_scope "#{name}_not_#{state.downcase}".to_sym, :conditions => ["#{quoted_table_name}.#{name} <> ?", state]
+            self.class_eval %Q{
+              def #{name}_#{state.downcase}?
+                #{name} == '#{state}'
+              end
+              def #{name}_not_#{state.downcase}?
+                #{name} != '#{state}'
+              end
+            }
           end
         end
       end

@@ -28,4 +28,36 @@ class StateTest < Test::Unit::TestCase
     end
   end
 
+  context "A Post" do
+    setup { @post = Post.new }
+    Post::PUBLICATION_STATES.each do |state|
+      context "with a #{state} state value" do
+        should "have a query method" do
+          assert @post.respond_to?("publication_state_#{state.downcase}?")
+        end
+        should "have a non query method" do
+          assert @post.respond_to?("publication_state_not_#{state.downcase}?")
+        end
+        context "when in that state" do
+          setup { @post.publication_state = state }
+          should "respond true to query method" do
+            assert @post.send("publication_state_#{state.downcase}?")
+          end
+          should "respond false to not query method" do
+            assert ! @post.send("publication_state_not_#{state.downcase}?")
+          end
+        end
+        context "when not in that state" do
+          setup { @post.publication_state = 'Invalid' }
+          should "respond false to query method" do
+            assert ! @post.send("publication_state_#{state.downcase}?")
+          end
+          should "respond true to not query method" do
+            assert @post.send("publication_state_not_#{state.downcase}?")
+          end
+        end
+      end
+    end
+  end
+
 end

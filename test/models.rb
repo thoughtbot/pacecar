@@ -29,11 +29,13 @@ end
 CreateSchema.suppress_messages { CreateSchema.migrate(:up) }
 
 class User < ActiveRecord::Base
+  include Pacecar
   has_many :posts, :as => :owner
   has_many :comments
   scopes_ranking :comments
 end
 class Post < ActiveRecord::Base
+  include Pacecar
   PUBLICATION_STATES = %w(Draft Submitted Rejected Accepted)
   TYPES = %w(Free Open Private Anonymous PostModern)
   belongs_to :owner, :polymorphic => true

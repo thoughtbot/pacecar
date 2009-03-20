@@ -39,8 +39,8 @@ class Post < ActiveRecord::Base
   PUBLICATION_STATES = %w(Draft Submitted Rejected Accepted)
   TYPES = %w(Free Open Private Anonymous PostModern)
   belongs_to :owner, :polymorphic => true
-  scopes_state :publication_state
-  scopes_state :post_type, :with => TYPES
+  has_state :publication_state
+  has_state :post_type, :with => TYPES
   scopes_polymorph :owner
 end
 class Comment < ActiveRecord::Base

@@ -6,7 +6,7 @@ module Pacecar
 
     module ClassMethods
 
-      def scopes_state(*names)
+      def has_state(*names)
         opts = names.extract_options!
         names.each do |name|
           constant = opts[:with] || const_get(name.to_s.pluralize.upcase)

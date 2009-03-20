@@ -41,7 +41,7 @@ class Post < ActiveRecord::Base
   belongs_to :owner, :polymorphic => true
   has_state :publication_state
   has_state :post_type, :with => TYPES
-  scopes_polymorph :owner
+  has_polymorph :owner
 end
 class Comment < ActiveRecord::Base
   belongs_to :user

@@ -37,7 +37,7 @@ And some basic model declarations...
   class User < ActiveRecord::Base
     has_many :posts, :as => :owner
     has_many :comments
-    scopes_ranking :comments
+    has_ranking :comments
   end
 
   class Post < ActiveRecord::Base

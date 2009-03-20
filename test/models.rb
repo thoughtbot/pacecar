@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   include Pacecar
   has_many :posts, :as => :owner
   has_many :comments
-  scopes_ranking :comments
+  has_ranking :comments
 end
 class Post < ActiveRecord::Base
   include Pacecar

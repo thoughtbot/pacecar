@@ -6,7 +6,7 @@ module Pacecar
 
     module ClassMethods
 
-      def scopes_ranking(association)
+      def has_ranking(association)
         define_ranking_scope association, :maximum, :desc
         define_ranking_scope association, :minimum, :asc
       end

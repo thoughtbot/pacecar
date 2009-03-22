@@ -1,6 +1,12 @@
 == Pacecar
 
-Pacecar adds named_scope methods to ActiveRecord classes via database column introspection.
+Pacecar adds named_scope methods and other common functionality to ActiveRecord classes via database column introspection.
+
+Pacecar automatically includes the Pacecar::Helpers module into all ActiveRecord::Base classes.
+
+To get all Pacecar functionality, you need to "include Pacecar" in your class.
+
+To get some subset (for example, only the state functionality), you can do something like "include Pacecar::State" to get only the module(s) you want.
 
 == Usage
 
@@ -35,12 +41,14 @@ Assuming a database schema...
 And some basic model declarations...
 
   class User < ActiveRecord::Base
+    include Pacecar
     has_many :posts, :as => :owner
     has_many :comments
     has_ranking :comments
   end
 
   class Post < ActiveRecord::Base
+    include Pacecar
     PUBLICATION_STATES = %w(Draft Submitted Rejected Accepted)
     TYPES = %w(Free Open Private Anonymous PostModern)
     belongs_to :owner, :polymorphic => true
@@ -50,6 +58,7 @@ And some basic model declarations...
   end
 
   class Comment < ActiveRecord::Base
+    include Pacecar
     belongs_to :user
   end
 

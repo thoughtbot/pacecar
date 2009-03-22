@@ -11,4 +11,3 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.rdoc']
   s.has_rdoc = true
 end
-

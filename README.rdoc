@@ -108,6 +108,10 @@ Records that are all admins or non-admins...
   User.admin
   User.not_admin
 
+The "balance" (count of true minus false for column in question)...
+
+  User.admin_balance
+
 = Datetime columns
 
 Records approved before or after certain times...

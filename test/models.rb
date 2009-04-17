@@ -32,7 +32,10 @@ class User < ActiveRecord::Base
   include Pacecar
   has_many :posts, :as => :owner
   has_many :comments
+  has_many :articles
   has_ranking :comments
+  has_recent_records :comments
+  has_recent_records :articles, :comments
 end
 class Post < ActiveRecord::Base
   include Pacecar
@@ -47,4 +50,5 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 end
 class Article < ActiveRecord::Base
+  belongs_to :user
 end

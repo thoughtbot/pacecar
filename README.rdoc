@@ -44,7 +44,10 @@ And some basic model declarations...
     include Pacecar
     has_many :posts, :as => :owner
     has_many :comments
+    has_many :articles
     has_ranking :comments
+    has_recent_records :comments
+    has_recent_records :articles, :comments
   end
 
   class Post < ActiveRecord::Base
@@ -59,6 +62,10 @@ And some basic model declarations...
 
   class Comment < ActiveRecord::Base
     include Pacecar
+    belongs_to :user
+  end
+
+  class Article < ActiveRecord::Base
     belongs_to :user
   end
 
@@ -153,6 +160,12 @@ Records with the most and least associated records...
 
   User.maximum_comments
   User.minimum_comments
+
+Records with associated records since a certain time...
+
+  User.recent_comments_since(2.days.ago)
+  User.recent_comments_and_posts_since(3.days.ago)
+  User.recent_comments_or_posts_since(4.days.ago)
 
 = State columns
 

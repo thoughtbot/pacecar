@@ -1,3 +1,4 @@
+require 'pacecar/associations'
 require 'pacecar/boolean'
 require 'pacecar/datetime'
 require 'pacecar/duration'
@@ -13,6 +14,7 @@ require 'pacecar/state'
 module Pacecar
   def self.included(base)
     base.class_eval do
+      include Pacecar::Associations
       include Pacecar::Boolean
       include Pacecar::Datetime
       include Pacecar::Duration

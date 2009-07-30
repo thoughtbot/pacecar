@@ -6,6 +6,7 @@ class CreateSchema < ActiveRecord::Migration
       t.boolean :admin, :default => false, :null => false
       t.datetime :approved_at
       t.datetime :rejected_at
+      t.date :last_posted_on
       t.string :first_name
       t.string :last_name
       t.text :description

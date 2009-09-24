@@ -10,6 +10,11 @@ class HelpersTest < Test::Unit::TestCase
       columns = @class.send :safe_columns
       assert_equal [], columns
     end
+    should "survive an include of Pacecar" do
+      assert_nothing_raised do
+        @class.send :include, Pacecar
+      end
+    end
   end
 
 end

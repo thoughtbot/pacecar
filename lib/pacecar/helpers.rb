@@ -21,10 +21,6 @@ module Pacecar
         end
       end
 
-      def column_names
-        safe_columns.collect(&:name)
-      end
-
       def column_names_for_type(*types)
         safe_columns.select { |column| types.include? column.type }.collect(&:name)
       end

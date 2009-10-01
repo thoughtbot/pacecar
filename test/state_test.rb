@@ -26,6 +26,16 @@ class StateTest < Test::Unit::TestCase
       proxy_options = { :conditions => ['"posts".post_type <> ?', 'PostModern'] }
       assert_equal proxy_options, @class.post_type_not_postmodern.proxy_options
     end
+    should "set the correct proxy options for a column_state method" do
+      assert @class.respond_to?(:post_type)
+      proxy_options = { :conditions => ['"posts".post_type = ?', 'PostModern'] }
+      assert_equal proxy_options, @class.post_type('PostModern').proxy_options
+    end
+    should "set the correct proxy options for a column_state_not method" do
+      assert @class.respond_to?(:post_type_not)
+      proxy_options = { :conditions => ['"posts".post_type <> ?', 'PostModern'] }
+      assert_equal proxy_options, @class.post_type_not('PostModern').proxy_options
+    end
   end
 
   context "A Post" do

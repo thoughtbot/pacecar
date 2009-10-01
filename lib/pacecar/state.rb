@@ -22,6 +22,12 @@ module Pacecar
               end
             }
           end
+          named_scope "#{name}".to_sym, lambda { |state|
+            { :conditions => ["#{quoted_table_name}.#{name} = ?", state] }
+          }
+          named_scope "#{name}_not".to_sym, lambda { |state|
+            { :conditions => ["#{quoted_table_name}.#{name} <> ?", state] }
+          }
         end
       end
 

@@ -22,28 +22,28 @@ module Pacecar
 
       def define_before_after_scopes(name)
         named_scope "#{name}_before".to_sym, lambda { |time|
-          { :conditions => ["#{quoted_table_name}.#{name} < ?", time] }
+          { :conditions => ["#{quoted_table_name}.#{name} <= ?", time] }
         }
         named_scope "#{name}_after".to_sym, lambda { |time|
-          { :conditions => ["#{quoted_table_name}.#{name} > ?", time] }
+          { :conditions => ["#{quoted_table_name}.#{name} >= ?", time] }
         }
       end
 
       def define_past_future_scopes(name)
         named_scope "#{name}_in_past", lambda { 
-          { :conditions => ["#{quoted_table_name}.#{name} < ?", Time.now] }
+          { :conditions => ["#{quoted_table_name}.#{name} <= ?", Time.now] }
         }
         named_scope "#{name}_in_future", lambda {
-          { :conditions => ["#{quoted_table_name}.#{name} > ?", Time.now] }
+          { :conditions => ["#{quoted_table_name}.#{name} >= ?", Time.now] }
         }
       end
 
       def define_inside_outside_scopes(name)
         named_scope "#{name}_inside".to_sym, lambda { |start, stop|
-          { :conditions => ["#{quoted_table_name}.#{name} > ? and #{quoted_table_name}.#{name} < ?", start, stop] }
+          { :conditions => ["#{quoted_table_name}.#{name} >= ? and #{quoted_table_name}.#{name} <= ?", start, stop] }
         }
         named_scope "#{name}_outside".to_sym, lambda { |start, stop|
-          { :conditions => ["#{quoted_table_name}.#{name} < ? and #{quoted_table_name}.#{name} > ?", start, stop] }
+          { :conditions => ["#{quoted_table_name}.#{name} <= ? and #{quoted_table_name}.#{name} >= ?", start, stop] }
         }
       end
 

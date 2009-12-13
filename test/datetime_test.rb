@@ -14,12 +14,12 @@ class DatetimeTest < Test::Unit::TestCase
           end
           should "set the correct proxy options for a #{column}_before method" do
             assert @class.respond_to?(:"#{column}_before")
-            proxy_options = { :conditions => ["\"users\".#{column} < ?", @time] }
+            proxy_options = { :conditions => ["\"users\".#{column} <= ?", @time] }
             assert_equal proxy_options, @class.send(:"#{column}_before", @time).proxy_options
           end
           should "set the correct proxy options for a after_ datetime column method" do
             assert @class.respond_to?(:"#{column}_before")
-            proxy_options = { :conditions => ["\"users\".#{column} > ?", @time] }
+            proxy_options = { :conditions => ["\"users\".#{column} >= ?", @time] }
             assert_equal proxy_options, @class.send(:"#{column}_after", @time).proxy_options
           end
         end
@@ -31,12 +31,12 @@ class DatetimeTest < Test::Unit::TestCase
           end
           should "set the correct proxy options for a #{column}_in_past method" do
             assert @class.respond_to?(:"#{column}_in_past")
-            proxy_options = { :conditions => ["\"users\".#{column} < ?", @now] }
+            proxy_options = { :conditions => ["\"users\".#{column} <= ?", @now] }
             assert_equal proxy_options, @class.send(:"#{column}_in_past", @time).proxy_options
           end
           should "set the correct proxy options for a #{column}_in_future datetime column method" do
             assert @class.respond_to?(:"#{column}_in_future")
-            proxy_options = { :conditions => ["\"users\".#{column} > ?", @now] }
+            proxy_options = { :conditions => ["\"users\".#{column} >= ?", @now] }
             assert_equal proxy_options, @class.send(:"#{column}_in_future", @time).proxy_options
           end
         end
@@ -48,12 +48,12 @@ class DatetimeTest < Test::Unit::TestCase
           end
           should "set the correct proxy options for a #{column}_inside method" do
             assert @class.respond_to?(:"#{column}_inside")
-            proxy_options = { :conditions => ["\"users\".#{column} > ? and \"users\".#{column} < ?", @start, @stop] }
+            proxy_options = { :conditions => ["\"users\".#{column} >= ? and \"users\".#{column} <= ?", @start, @stop] }
             assert_equal proxy_options, @class.send(:"#{column}_inside", @start, @stop).proxy_options
           end
           should "set the correct proxy options for a #{column}_outside method" do
             assert @class.respond_to?(:"#{column}_outside")
-            proxy_options = { :conditions => ["\"users\".#{column} < ? and \"users\".#{column} > ?", @start, @stop] }
+            proxy_options = { :conditions => ["\"users\".#{column} <= ? and \"users\".#{column} >= ?", @start, @stop] }
             assert_equal proxy_options, @class.send(:"#{column}_outside", @start, @stop).proxy_options 
           end
         end

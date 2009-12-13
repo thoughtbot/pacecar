@@ -14,6 +14,9 @@ module Pacecar
 
       def define_search_scopes
         text_and_string_column_names.each do |name|
+          named_scope "#{name}_equals".to_sym, lambda { |query|
+            { :conditions => ["#{quoted_table_name}.#{name} = :query", { :query => query }] }
+          }
           named_scope "#{name}_matches".to_sym, lambda { |query|
             { :conditions => ["#{quoted_table_name}.#{name} like :query", { :query => "%#{query}%" }] }
           }

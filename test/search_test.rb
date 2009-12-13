@@ -6,6 +6,11 @@ class SearchTest < Test::Unit::TestCase
     setup do
       @class = User
     end
+    should "set the correct proxy options for a _equals column method" do
+      assert @class.respond_to?(:first_name_equals)
+      proxy_options = { :conditions => ['"users".first_name = :query', { :query => "test" }] }
+      assert_equal proxy_options, @class.first_name_equals('test').proxy_options
+    end
     should "set the correct proxy options for a _matches column method" do
       assert @class.respond_to?(:first_name_matches)
       proxy_options = { :conditions => ['"users".first_name like :query', { :query => "%test%" }] }

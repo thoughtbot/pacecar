@@ -197,6 +197,11 @@ To get the top 10 commenters...
 
   User.maximim_comments.limited(10)
 
+= Supported Databases
+
+* MySQL
+* SQLite
+
 = License
 
 Pacecar is free software, and may be redistributed under the terms specified in the MIT-LICENSE file.

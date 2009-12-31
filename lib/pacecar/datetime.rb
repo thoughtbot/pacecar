@@ -30,11 +30,11 @@ module Pacecar
       end
 
       def define_past_future_scopes(name)
-        named_scope "#{name}_in_past", lambda { 
-          { :conditions => ["#{quoted_table_name}.#{name} <= ?", Time.now] }
+        named_scope "#{name}_in_past", lambda {
+          { :conditions => ["#{quoted_table_name}.#{name} <= ?", now] }
         }
         named_scope "#{name}_in_future", lambda {
-          { :conditions => ["#{quoted_table_name}.#{name} >= ?", Time.now] }
+          { :conditions => ["#{quoted_table_name}.#{name} >= ?", now] }
         }
       end
 
@@ -57,6 +57,10 @@ module Pacecar
         named_scope "#{name}_in_day".to_sym, lambda { |day|
           { :conditions => ["day(#{quoted_table_name}.#{name}) = ?", day] }
         }
+      end
+
+      def now
+        defined?(Time.zone_default) && Time.zone_default ? Time.zone_default.now : Time.now
       end
 
     end

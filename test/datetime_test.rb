@@ -41,6 +41,27 @@ class DatetimeTest < Test::Unit::TestCase
           end
         end
 
+        context "with in_past and in_future methods given a zone_default" do
+          setup do
+            Time.zone_default = Time.__send__(:get_zone, "UTC")
+            @now = Time.zone_default.now
+            Time.zone_default.stubs(:now).returns @now
+          end
+          teardown do
+            Time.zone_default = nil
+          end
+          should "set the correct proxy options for a #{column}_in_past method" do
+            assert @class.respond_to?(:"#{column}_in_past")
+            proxy_options = { :conditions => ["\"users\".#{column} <= ?", @now] }
+            assert_equal proxy_options, @class.send(:"#{column}_in_past", @time).proxy_options
+          end
+          should "set the correct proxy options for a #{column}_in_future datetime column method" do
+            assert @class.respond_to?(:"#{column}_in_future")
+            proxy_options = { :conditions => ["\"users\".#{column} >= ?", @now] }
+            assert_equal proxy_options, @class.send(:"#{column}_in_future", @time).proxy_options
+          end
+        end
+
         context "with _inside and _outside methods" do
           setup do
             @start = 3.days.ago
@@ -54,7 +75,7 @@ class DatetimeTest < Test::Unit::TestCase
           should "set the correct proxy options for a #{column}_outside method" do
             assert @class.respond_to?(:"#{column}_outside")
             proxy_options = { :conditions => ["\"users\".#{column} <= ? and \"users\".#{column} >= ?", @start, @stop] }
-            assert_equal proxy_options, @class.send(:"#{column}_outside", @start, @stop).proxy_options 
+            assert_equal proxy_options, @class.send(:"#{column}_outside", @start, @stop).proxy_options
           end
         end
 

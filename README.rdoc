@@ -96,6 +96,10 @@ Records where an attribute starts or ends with a search term...
   User.first_name_starts_with('A')
   User.first_name_ends_with('a')
 
+Records where an attribute matches exactly a term...
+
+  User.first_name_equals('John')
+
 Records where any non-state text or string column matches term...
 
   User.search_for('test')

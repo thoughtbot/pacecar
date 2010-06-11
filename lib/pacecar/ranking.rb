@@ -14,7 +14,7 @@ module Pacecar
       protected
 
       def define_ranking_scope(association, name, direction)
-        named_scope "#{name}_#{association}",
+        scope "#{name}_#{association}",
         :joins => "inner join #{association} on #{association}.#{reflections[association].primary_key_name} = #{quoted_table_name}.#{primary_key}",
         :select => "#{quoted_table_name}.*, count(#{quoted_table_name}.#{primary_key}) as #{association}_count",
         :group => "#{association}.#{reflections[association].primary_key_name}",

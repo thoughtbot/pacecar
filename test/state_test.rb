@@ -6,35 +6,35 @@ class StateTest < Test::Unit::TestCase
     setup do
       @class = Post
     end
-    should "set the correct proxy options for a column_state _state method" do
+    should "set the correct expected values for a column_state _state method" do
       assert @class.respond_to?(:publication_state_draft)
-      proxy_options = { :conditions => ['"posts".publication_state = ?', 'Draft'] }
-      assert_equal proxy_options, @class.publication_state_draft.proxy_options
+      expected = ["\"posts\".publication_state = 'Draft'"]
+      assert_equal expected, @class.publication_state_draft.where_values
     end
-    should "set the correct proxy options for a column_not_state _state method" do
+    should "set the correct expected values for a column_not_state _state method" do
       assert @class.respond_to?(:publication_state_not_draft)
-      proxy_options = { :conditions => ['"posts".publication_state <> ?', 'Draft'] }
-      assert_equal proxy_options, @class.publication_state_not_draft.proxy_options
+      expected = ["\"posts\".publication_state <> 'Draft'"]
+      assert_equal expected, @class.publication_state_not_draft.where_values
     end
-    should "set the correct proxy options for a column_state _type method" do
+    should "set the correct expected values for a column_state _type method" do
       assert @class.respond_to?(:post_type_postmodern)
-      proxy_options = { :conditions => ['"posts".post_type = ?', 'PostModern'] }
-      assert_equal proxy_options, @class.post_type_postmodern.proxy_options
+      expected = ["\"posts\".post_type = 'PostModern'"]
+      assert_equal expected, @class.post_type_postmodern.where_values
     end
-    should "set the correct proxy options for a column_not_state _type method" do
+    should "set the correct expected values for a column_not_state _type method" do
       assert @class.respond_to?(:post_type_not_postmodern)
-      proxy_options = { :conditions => ['"posts".post_type <> ?', 'PostModern'] }
-      assert_equal proxy_options, @class.post_type_not_postmodern.proxy_options
+      expected = ["\"posts\".post_type <> 'PostModern'"]
+      assert_equal expected, @class.post_type_not_postmodern.where_values
     end
-    should "set the correct proxy options for a column_state method" do
+    should "set the correct expected values for a column_state method" do
       assert @class.respond_to?(:post_type)
-      proxy_options = { :conditions => ['"posts".post_type = ?', 'PostModern'] }
-      assert_equal proxy_options, @class.post_type('PostModern').proxy_options
+      expected = ["\"posts\".post_type = 'PostModern'"]
+      assert_equal expected, @class.post_type('PostModern').where_values
     end
-    should "set the correct proxy options for a column_state_not method" do
+    should "set the correct expected values for a column_state_not method" do
       assert @class.respond_to?(:post_type_not)
-      proxy_options = { :conditions => ['"posts".post_type <> ?', 'PostModern'] }
-      assert_equal proxy_options, @class.post_type_not('PostModern').proxy_options
+      expected = ["\"posts\".post_type <> 'PostModern'"]
+      assert_equal expected, @class.post_type_not('PostModern').where_values
     end
   end
 

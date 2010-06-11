@@ -6,15 +6,15 @@ class BooleanTest < Test::Unit::TestCase
     setup do
       @class = User
     end
-    should "set the correct proxy options for a boolean column method" do
+    should "set the correct expected values for a boolean column method" do
       assert @class.respond_to?(:admin)
-      proxy_options = { :conditions => ['"users".admin = ?', true] }
-      assert_equal proxy_options, @class.admin.proxy_options
+      expected = ["\"users\".admin = 't'"]
+      assert_equal expected, @class.admin.where_values
     end
-    should "set the correct proxy options for a not_ boolean column method" do
+    should "set the correct expected values for a not_ boolean column method" do
       assert @class.respond_to?(:not_admin)
-      proxy_options = { :conditions => ['"users".admin = ?', false] }
-      assert_equal proxy_options, @class.not_admin.proxy_options
+      expected = ["\"users\".admin = 'f'"]
+      assert_equal expected, @class.not_admin.where_values
     end
     context "With boolean column scopes that can count" do
       setup do

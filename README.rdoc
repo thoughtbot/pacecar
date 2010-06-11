@@ -1,6 +1,6 @@
 == Pacecar
 
-Pacecar adds named_scope methods and other common functionality to ActiveRecord classes via database column introspection.
+Pacecar adds scope methods and other common functionality to ActiveRecord classes via database column introspection.
 
 Pacecar automatically includes the Pacecar::Helpers module into all ActiveRecord::Base classes.
 
@@ -191,7 +191,7 @@ First x records...
 
 = Named scopes
 
-Because these are all named_scope, you can combine them.
+Because these are all scope, you can combine them.
 
 To get all users that have a first_name set, who are admins and approved more than 2 weeks ago, ordered by their first name...
 

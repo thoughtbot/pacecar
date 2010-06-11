@@ -13,8 +13,8 @@ module Pacecar
 
       def define_presence_scopes
         column_names_without_type(:boolean).each do |name|
-          named_scope "#{name}_present".to_sym, :conditions => "#{quoted_table_name}.#{name} is not null"
-          named_scope "#{name}_missing".to_sym, :conditions => "#{quoted_table_name}.#{name} is null"
+          scope "#{name}_present".to_sym, :conditions => "#{quoted_table_name}.#{name} is not null"
+          scope "#{name}_missing".to_sym, :conditions => "#{quoted_table_name}.#{name} is null"
         end
       end
 

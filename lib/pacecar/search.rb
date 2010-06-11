@@ -14,25 +14,25 @@ module Pacecar
 
       def define_search_scopes
         safe_column_names.each do |name|
-          named_scope "#{name}_equals".to_sym, lambda { |query|
+          scope "#{name}_equals".to_sym, lambda { |query|
             { :conditions => ["#{quoted_table_name}.#{name} = :query", { :query => query }] }
           }
         end
         text_and_string_column_names.each do |name|
-          named_scope "#{name}_matches".to_sym, lambda { |query|
+          scope "#{name}_matches".to_sym, lambda { |query|
             { :conditions => ["#{quoted_table_name}.#{name} like :query", { :query => "%#{query}%" }] }
           }
-          named_scope "#{name}_starts_with".to_sym, lambda { |query|
+          scope "#{name}_starts_with".to_sym, lambda { |query|
             { :conditions => ["#{quoted_table_name}.#{name} like :query", { :query => "#{query}%" }] }
           }
-          named_scope "#{name}_ends_with".to_sym, lambda { |query|
+          scope "#{name}_ends_with".to_sym, lambda { |query|
             { :conditions => ["#{quoted_table_name}.#{name} like :query", { :query => "%#{query}" }] }
           }
         end
       end
 
       def define_basic_search_scope
-        named_scope :search_for, lambda { |*args|
+        scope :search_for, lambda { |*args|
           opts = args.extract_options!
           query = args.flatten.first
           columns = opts[:on] || non_state_text_and_string_columns

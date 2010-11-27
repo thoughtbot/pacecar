@@ -49,7 +49,7 @@ class SearchTest < Test::Unit::TestCase
     end
     should "set the correct expected values for a search_for method" do
       assert @class.respond_to?(:search_for)
-      expected = []
+      expected = ['']
       assert_equal expected, @class.search_for('test').where_values
     end
   end

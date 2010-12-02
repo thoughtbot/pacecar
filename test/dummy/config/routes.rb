@@ -1,4 +1,4 @@
-Dummy::Application.routes.draw do |map|
+Dummy::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -16,12 +16,12 @@ Dummy::Application.routes.draw do |map|
   # Sample resource route with options:
   #   resources :products do
   #     member do
-  #       get :short
-  #       post :toggle
+  #       get 'short'
+  #       post 'toggle'
   #     end
   #
   #     collection do
-  #       get :sold
+  #       get 'sold'
   #     end
   #   end
 
@@ -35,7 +35,7 @@ Dummy::Application.routes.draw do |map|
   #   resources :products do
   #     resources :comments
   #     resources :sales do
-  #       get :recent, :on => :collection
+  #       get 'recent', :on => :collection
   #     end
   #   end
 

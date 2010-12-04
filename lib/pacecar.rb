@@ -10,6 +10,7 @@ require 'pacecar/presence'
 require 'pacecar/ranking'
 require 'pacecar/search'
 require 'pacecar/state'
+require 'pacecar/numeric'
 
 module Pacecar
   def self.included(base)
@@ -25,6 +26,7 @@ module Pacecar
       include Pacecar::Ranking
       include Pacecar::Search
       include Pacecar::State
+      include Pacecar::Numeric
     end
   end
 end

@@ -12,7 +12,7 @@ module Pacecar
     end
 
     module ClassMethods
-      
+
       def safe_column_names
         safe_columns.collect(&:name)
       end
@@ -36,28 +36,28 @@ module Pacecar
       def non_state_text_and_string_columns
         text_and_string_column_names.reject { |name| name =~ Pacecar::Helpers.options[:state_pattern] }
       end
-      
+
       def numeric_column_names
         column_names_for_type :integer, :float
       end
-      
+
       protected
 
-        def safe_columns
-          begin
-            columns
-          rescue ActiveRecord::StatementInvalid # If the table does not exist
-            Array.new
-          end
+      def safe_columns
+        begin
+          columns
+        rescue ActiveRecord::StatementInvalid # If the table does not exist
+          Array.new
         end
-      
-        def column_names_for_type(*types)
-          safe_columns.select { |column| types.include? column.type }.collect(&:name)
-        end
+      end
 
-        def column_names_without_type(*types)
-          safe_columns.select { |column| ! types.include? column.type }.collect(&:name)
-        end      
+      def column_names_for_type(*types)
+        safe_columns.select { |column| types.include? column.type }.collect(&:name)
+      end
+
+      def column_names_without_type(*types)
+        safe_columns.select { |column| ! types.include? column.type }.collect(&:name)
+      end      
 
     end
   end

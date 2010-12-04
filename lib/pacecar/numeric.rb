@@ -13,18 +13,14 @@ module Pacecar
 
       def define_numeric_scopes
         numeric_column_names.each do |name|
-          scope "#{name}_greater_than".to_sym, lambda { |value|
-            { :conditions => ["#{quoted_table_name}.\"#{name}\" > ?", value] }
-          }
-          scope "#{name}_greater_than_or_equal_to".to_sym, lambda { |value|
-            { :conditions => ["#{quoted_table_name}.\"#{name}\" >= ?", value] }
-          }
-          scope "#{name}_less_than".to_sym, lambda { |value|
-            { :conditions => ["#{quoted_table_name}.\"#{name}\" < ?", value] }
-          }
-          scope "#{name}_less_than_or_equal_to".to_sym, lambda { |value|
-            { :conditions => ["#{quoted_table_name}.\"#{name}\" <= ?", value] }
-          }
+          { :greater_than => '>', :less_than => '<' }.each do |method_name, symbol|
+            scope "#{name}_#{method_name}".to_sym, lambda { |value|
+              { :conditions => ["#{quoted_table_name}.\"#{name}\" #{symbol} ?", value] }
+            }
+            scope "#{name}_#{method_name}_or_equal_to".to_sym, lambda { |value|
+              { :conditions => ["#{quoted_table_name}.\"#{name}\" #{symbol}= ?", value] }
+            }
+          end
         end
       end
 

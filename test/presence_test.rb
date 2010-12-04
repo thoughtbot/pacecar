@@ -20,8 +20,8 @@ class PresenceTest < Test::Unit::TestCase
         assert_equal expected.strip, @class.first_name_missing.to_sql
       end
       should "not setup methods for boolean columns" do
-        assert ! @class.respond_to?(:admin_missing)
-        assert ! @class.respond_to?(:admin_present)
+        assert_raise(NoMethodError) { @class.admin_missing }
+        assert_raise(NoMethodError) { @class.admin_present }
       end
     end
   end

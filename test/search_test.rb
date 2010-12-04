@@ -55,11 +55,11 @@ class SearchTest < Test::Unit::TestCase
 
   context "A class which has included Pacecar but which has nothing to search" do
     setup do
-      @class = Post
+      @class = Mammal
     end
     should "set the correct expected values for a search_for method" do
       assert @class.respond_to?(:search_for)
-      expected = "SELECT \"posts\".* FROM \"posts\""
+      expected = "SELECT \"mammals\".* FROM \"mammals\""
       assert_equal expected, @class.search_for('test').to_sql
     end
   end

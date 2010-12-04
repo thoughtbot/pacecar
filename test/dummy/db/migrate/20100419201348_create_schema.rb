@@ -26,6 +26,9 @@ class CreateSchema < ActiveRecord::Migration
       t.text :description
       t.timestamps
     end
+    create_table :mammals, :force => true do |t|
+      t.timestamps
+    end
   end
   def self.down
   end

@@ -12,7 +12,7 @@ module Pacecar
       protected
 
       def define_order_scopes
-        safe_columns.collect(&:name).each do |name|
+        safe_column_names.each do |name|
           scope "by_#{name}".to_sym, lambda { |*args|
             { :order => "#{quoted_table_name}.#{name} #{args.flatten.first || 'asc'}" }
           }

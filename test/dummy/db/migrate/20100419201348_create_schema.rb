@@ -8,6 +8,8 @@ class CreateSchema < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.text :description
+      t.integer :age
+      t.float :rating
       t.timestamps
     end
     create_table :posts, :force => true do |t|
@@ -15,6 +17,8 @@ class CreateSchema < ActiveRecord::Migration
       t.integer :owner_id
       t.string :publication_state
       t.string :post_type
+      t.string :title
+      t.text :body
       t.timestamps
     end
     create_table :comments, :force => true do |t|

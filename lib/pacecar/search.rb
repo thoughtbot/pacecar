@@ -15,7 +15,7 @@ module Pacecar
       def define_search_scopes
         safe_column_names.each do |name|
           scope "#{name}_equals".to_sym, lambda { |query|
-            { :conditions => { table_name => { name => query} } }
+            { :conditions => { table_name => { name.to_sym => query} } }
           }
         end
         text_and_string_column_names.each do |name|

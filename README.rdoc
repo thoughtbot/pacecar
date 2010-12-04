@@ -194,6 +194,15 @@ Query methods on instances to check state...
   Post.first.publication_state_draft?
   Post.last.post_type_not_open?
 
+= Numeric columns
+
+Records which are greater than or less than a certain value...
+
+  User.age_greater_than(21)
+  User.age_greater_than_or_equal_to(21)
+  User.age_less_than(21)
+  User.age_less_than_or_equal_to(21)
+
 = Limits
 
 First x records...

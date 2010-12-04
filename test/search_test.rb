@@ -11,6 +11,11 @@ class SearchTest < Test::Unit::TestCase
       expected = "SELECT \"users\".* FROM \"users\" WHERE (\"users\".\"first_name\" = 'test')"
       assert_equal expected, @class.first_name_equals('test').to_sql
     end
+    should "set the correct expected values for a _equals column method with an Array as value" do
+      assert @class.respond_to?(:first_name_equals)
+      expected = "SELECT \"users\".* FROM \"users\" WHERE (\"users\".\"first_name\" IN ('test', 'this'))"
+      assert_equal expected, @class.first_name_equals(['test','this']).to_sql
+    end
     should "set the correct expected values for a _equals column method with nil as value" do
       assert @class.respond_to?(:first_name_equals)
       expected = "SELECT \"users\".* FROM \"users\" WHERE (\"users\".\"first_name\" IS NULL)"

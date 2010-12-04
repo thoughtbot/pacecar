@@ -31,7 +31,7 @@ module Pacecar
       protected
 
       def conditions_for_name(name)
-        "((select count(*) from \"#{name}\" where \"#{name}\".#{reflections[name].primary_key_name} = #{quoted_table_name}.id and \"#{name}\".created_at > :since_time) > 0)"
+        "((select count(*) from \"#{name}\" where \"#{name}\".\"#{reflections[name].primary_key_name}\" = #{quoted_table_name}.\"id\" and \"#{name}\".\"created_at\" > :since_time) > 0)"
       end
 
     end

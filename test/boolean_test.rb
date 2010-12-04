@@ -7,18 +7,19 @@ class BooleanTest < Test::Unit::TestCase
       @class = User
     end
     should "set the correct expected values for a boolean column method" do
-      assert @class.respond_to?(:admin)
-      expected = ["\"users\".admin = 't'"]
-      assert_equal expected, @class.admin.where_values
+      expected =<<-SQL
+      SELECT "users".* FROM "users" WHERE ("users"."admin" = 't')
+      SQL
+      assert_equal expected.strip, @class.admin.to_sql
     end
     should "set the correct expected values for a not_ boolean column method" do
-      assert @class.respond_to?(:not_admin)
-      expected = ["\"users\".admin = 'f'"]
-      assert_equal expected, @class.not_admin.where_values
+      expected =<<-SQL
+      SELECT "users".* FROM "users" WHERE ("users"."admin" = 'f')
+      SQL
+      assert_equal expected.strip, @class.not_admin.to_sql
     end
     context "With boolean column scopes that can count" do
       setup do
-        assert @class.respond_to?(:admin_balance)
         @true_mock = mock
         @false_mock = mock
         @class.expects(:admin).returns @true_mock

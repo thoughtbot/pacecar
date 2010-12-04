@@ -8,26 +8,16 @@ class RankingTest < Test::Unit::TestCase
     end
     context "with association methods" do
       should "set the correct expected values on a maximum_ column method" do
-        assert @class.respond_to?(:maximum_comments)
-        expected_select = ["\"users\".*, count(\"users\".id) as comments_count"]
-        assert_equal expected_select, @class.maximum_comments.select_values
-        expected_joins = ["inner join comments on comments.user_id = \"users\".id"]
-        assert_equal expected_joins, @class.maximum_comments.joins_values
-        expected_group = ["comments.user_id"]
-        assert_equal expected_group, @class.maximum_comments.group_values.uniq
-        expected_order = ["comments_count desc"]
-        assert_equal expected_order, @class.maximum_comments.order_values
+        expected =<<-SQL
+        SELECT "users".*, count("users"."id") as comments_count FROM "users" inner join comments on comments.user_id = "users"."id" GROUP BY comments.user_id ORDER BY comments_count desc
+        SQL
+        assert_equal expected.strip, @class.maximum_comments.to_sql
       end
       should "set the correct expected values on a minimum_ column method" do
-        assert @class.respond_to?(:minimum_comments)
-        expected_select = ["\"users\".*, count(\"users\".id) as comments_count"]
-        assert_equal expected_select, @class.minimum_comments.select_values
-        expected_joins = ["inner join comments on comments.user_id = \"users\".id"]
-        assert_equal expected_joins, @class.minimum_comments.joins_values
-        expected_group = ["comments.user_id"]
-        assert_equal expected_group, @class.minimum_comments.group_values.uniq
-        expected_order = ["comments_count asc"]
-        assert_equal expected_order, @class.minimum_comments.order_values
+        expected =<<-SQL
+        SELECT "users".*, count("users"."id") as comments_count FROM "users" inner join comments on comments.user_id = "users"."id" GROUP BY comments.user_id ORDER BY comments_count asc
+        SQL
+        assert_equal expected.strip, @class.minimum_comments.to_sql
       end
     end
   end

@@ -8,14 +8,16 @@ class PresenceTest < Test::Unit::TestCase
     end
     context "with presence methods" do
       should "set the correct expected values for a _present column method" do
-        assert @class.respond_to?(:first_name_present)
-        expected = ["\"users\".first_name is not null"]
-        assert_equal expected, @class.first_name_present.where_values
+        expected =<<-SQL
+        SELECT "users".* FROM "users" WHERE ("users"."first_name" IS NOT NULL)
+        SQL
+        assert_equal expected.strip, @class.first_name_present.to_sql
       end
       should "set the correct expected values for a _missing column method" do
-        assert @class.respond_to?(:first_name_missing)
-        expected = ["\"users\".first_name is null"]
-        assert_equal expected, @class.first_name_missing.where_values
+        expected =<<-SQL
+        SELECT "users".* FROM "users" WHERE ("users"."first_name" IS NULL)
+        SQL
+        assert_equal expected.strip, @class.first_name_missing.to_sql
       end
       should "not setup methods for boolean columns" do
         assert ! @class.respond_to?(:admin_missing)

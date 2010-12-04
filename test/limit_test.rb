@@ -8,20 +8,23 @@ class LimitTest < Test::Unit::TestCase
     end
     context "with order methods" do
       should "set the correct expected values for a by_ column method" do
-        assert @class.respond_to?(:limited)
-        expected = 10
-        assert_equal expected, @class.limited.limit_value
+        expected =<<-SQL
+        SELECT "users".* FROM "users" LIMIT 10
+        SQL
+        assert_equal expected.strip, @class.limited.to_sql
       end
       should "set the correct expected values for a by_ column method when sent args" do
-        assert @class.respond_to?(:limited)
-        expected = 20
-        assert_equal expected, @class.limited(20).limit_value
+        expected =<<-SQL
+        SELECT "users".* FROM "users" LIMIT 20
+        SQL
+        assert_equal expected.strip, @class.limited(20).to_sql
       end
       should "set the correct expected values for a by_ column method when per_page defined" do
-        assert @class.respond_to?(:limited)
         @class.expects(:per_page).returns 30
-        expected = 30
-        assert_equal expected, @class.limited.limit_value
+        expected =<<-SQL
+        SELECT "users".* FROM "users" LIMIT 30
+        SQL
+        assert_equal expected.strip, @class.limited.to_sql
       end
     end
   end

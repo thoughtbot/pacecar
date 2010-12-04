@@ -8,19 +8,22 @@ class OrderTest < Test::Unit::TestCase
     end
     context "with order methods" do
       should "set the correct expected values for a by_ column method with no args" do
-        assert @class.respond_to?(:by_first_name)
-        expected = ["\"users\".first_name asc"]
-        assert_equal expected, @class.by_first_name.order_values
+        expected =<<-SQL
+        SELECT "users".* FROM "users" ORDER BY "users"."first_name" asc
+        SQL
+        assert_equal expected.strip, @class.by_first_name.to_sql
       end
       should "set the correct expected values for a by_ column method with asc args" do
-        assert @class.respond_to?(:by_first_name)
-        expected = ["\"users\".first_name asc"]
-        assert_equal expected, @class.by_first_name(:asc).order_values
+        expected =<<-SQL
+        SELECT "users".* FROM "users" ORDER BY "users"."first_name" asc
+        SQL
+        assert_equal expected.strip, @class.by_first_name(:asc).to_sql
       end
       should "set the correct expected values for a by_ column method with desc args" do
-        assert @class.respond_to?(:by_first_name)
-        expected = ["\"users\".first_name desc"]
-        assert_equal expected, @class.by_first_name(:desc).order_values
+        expected =<<-SQL
+        SELECT "users".* FROM "users" ORDER BY "users"."first_name" desc
+        SQL
+        assert_equal expected.strip, @class.by_first_name(:desc).to_sql
       end
     end
   end

@@ -22,40 +22,40 @@ module Pacecar
 
       def define_before_after_scopes(name)
         scope "#{name}_before".to_sym, lambda { |time|
-          { :conditions => ["#{quoted_table_name}.#{name} <= ?", time] }
+          { :conditions => ["#{quoted_table_name}.\"#{name}\" <= ?", time] }
         }
         scope "#{name}_after".to_sym, lambda { |time|
-          { :conditions => ["#{quoted_table_name}.#{name} >= ?", time] }
+          { :conditions => ["#{quoted_table_name}.\"#{name}\" >= ?", time] }
         }
       end
 
       def define_past_future_scopes(name)
         scope "#{name}_in_past", lambda {
-          { :conditions => ["#{quoted_table_name}.#{name} <= ?", now] }
+          { :conditions => ["#{quoted_table_name}.\"#{name}\" <= ?", now] }
         }
         scope "#{name}_in_future", lambda {
-          { :conditions => ["#{quoted_table_name}.#{name} >= ?", now] }
+          { :conditions => ["#{quoted_table_name}.\"#{name}\" >= ?", now] }
         }
       end
 
       def define_inside_outside_scopes(name)
         scope "#{name}_inside".to_sym, lambda { |start, stop|
-          { :conditions => ["#{quoted_table_name}.#{name} >= ? and #{quoted_table_name}.#{name} <= ?", start, stop] }
+          { :conditions => ["#{quoted_table_name}.\"#{name}\" >= ? and #{quoted_table_name}.\"#{name}\" <= ?", start, stop] }
         }
         scope "#{name}_outside".to_sym, lambda { |start, stop|
-          { :conditions => ["#{quoted_table_name}.#{name} <= ? and #{quoted_table_name}.#{name} >= ?", start, stop] }
+          { :conditions => ["#{quoted_table_name}.\"#{name}\" <= ? and #{quoted_table_name}.\"#{name}\" >= ?", start, stop] }
         }
       end
 
       def define_in_date_scopes(name)
         scope "#{name}_in_year".to_sym, lambda { |year|
-          { :conditions => ["year(#{quoted_table_name}.#{name}) = ?", year] }
+          { :conditions => ["year(#{quoted_table_name}.\"#{name}\") = ?", year] }
         }
         scope "#{name}_in_month".to_sym, lambda { |month|
-          { :conditions => ["month(#{quoted_table_name}.#{name}) = ?", month] }
+          { :conditions => ["month(#{quoted_table_name}.\"#{name}\") = ?", month] }
         }
         scope "#{name}_in_day".to_sym, lambda { |day|
-          { :conditions => ["day(#{quoted_table_name}.#{name}) = ?", day] }
+          { :conditions => ["day(#{quoted_table_name}.\"#{name}\") = ?", day] }
         }
       end
 

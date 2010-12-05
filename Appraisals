@@ -1,3 +1,4 @@
+# rails_versions = ['3.0.3', '2.3.9', '2.3.5']
 rails_versions = ['3.0.3']
 database_drivers = ['mysql', 'sqlite3-ruby', 'mysql2', 'pg']
 

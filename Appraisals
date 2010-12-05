@@ -1,5 +1,5 @@
 rails_versions = ['3.0.3']
-database_drivers = ['mysql', 'sqlite3-ruby', 'mysql2']
+database_drivers = ['mysql', 'sqlite3-ruby', 'mysql2', 'pg']
 
 rails_versions.each do |rails_version|
   database_drivers.each do |database_driver|

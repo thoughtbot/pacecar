@@ -15,12 +15,6 @@ require "capybara/rails"
 Capybara.default_driver   = :rack_test
 Capybara.default_selector = :css
 
-# Delete DB from previous runs
-FileUtils.rm File.expand_path("../dummy/db/test.sqlite3", __FILE__), :force => true
-
-# Run any available migration
-ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
-
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 

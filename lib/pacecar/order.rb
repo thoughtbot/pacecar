@@ -14,7 +14,7 @@ module Pacecar
       def define_order_scopes
         safe_column_names.each do |name|
           scope "by_#{name}".to_sym, lambda { |*args|
-            { :order => "#{quoted_table_name}.\"#{name}\" #{args.flatten.first || 'asc'}" }
+            { :order => "#{quoted_table_name}.#{connection.quote_column_name name} #{args.flatten.first || 'asc'}" }
           }
         end
       end

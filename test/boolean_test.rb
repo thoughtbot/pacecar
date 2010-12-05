@@ -8,13 +8,13 @@ class BooleanTest < Test::Unit::TestCase
     end
     should "set the correct expected values for a boolean column method" do
       expected =<<-SQL
-      SELECT "users".* FROM "users" WHERE ("users"."admin" = 't')
+      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "admin"} = #{ActiveRecord::Base.connection.quoted_true})
       SQL
       assert_equal expected.strip, @class.admin.to_sql
     end
     should "set the correct expected values for a not_ boolean column method" do
       expected =<<-SQL
-      SELECT "users".* FROM "users" WHERE ("users"."admin" = 'f')
+      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "admin"} = #{ActiveRecord::Base.connection.quoted_false})
       SQL
       assert_equal expected.strip, @class.not_admin.to_sql
     end

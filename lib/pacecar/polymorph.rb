@@ -8,7 +8,8 @@ module Pacecar
 
       def has_polymorph(name)
         scope "for_#{name}_type".to_sym, lambda { |type|
-          { :conditions => ["#{quoted_table_name}.\"#{name}_type\" = ?", type.to_s] }
+          polymorph_type = "#{name}_type"
+          { :conditions => ["#{quoted_table_name}.#{connection.quote_column_name polymorph_type} = ?", type.to_s] }
         }
       end
 

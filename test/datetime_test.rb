@@ -14,13 +14,13 @@ class DatetimeTest < Test::Unit::TestCase
           end
           should "set the correct expected values for a #{column}_before method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE ("users"."#{column}" <= '#{@time.to_s(:db)}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} <= '#{@time.to_s(:db)}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_before", @time).to_sql
           end
           should "set the correct expected values for a after_ datetime column method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE ("users"."#{column}" >= '#{@time.to_s(:db)}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} >= '#{@time.to_s(:db)}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_after", @time).to_sql
           end
@@ -34,13 +34,13 @@ class DatetimeTest < Test::Unit::TestCase
           end
           should "set the correct expected values for a #{column}_in_past method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE ("users"."#{column}" <= '#{@now.to_s(:db)}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} <= '#{@now.to_s(:db)}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_in_past").to_sql
           end
           should "set the correct expected values for a #{column}_in_future datetime column method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE ("users"."#{column}" >= '#{@now.to_s(:db)}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} >= '#{@now.to_s(:db)}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_in_future").to_sql
           end
@@ -57,13 +57,13 @@ class DatetimeTest < Test::Unit::TestCase
           end
           should "set the correct expected values for a #{column}_in_past method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE ("users"."#{column}" <= '#{@now.to_s(:db)}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} <= '#{@now.to_s(:db)}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_in_past", @time).to_sql
           end
           should "set the correct expected values for a #{column}_in_future datetime column method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE ("users"."#{column}" >= '#{@now.to_s(:db)}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} >= '#{@now.to_s(:db)}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_in_future", @time).to_sql
           end
@@ -76,13 +76,13 @@ class DatetimeTest < Test::Unit::TestCase
           end
           should "set the correct expected values for a #{column}_inside method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE ("users"."#{column}" >= '#{@start.to_s(:db)}' and "users"."#{column}" <= '#{@stop.to_s(:db)}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} >= '#{@start.to_s(:db)}' and #{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} <= '#{@stop.to_s(:db)}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_inside", @start, @stop).to_sql
           end
           should "set the correct expected values for a #{column}_outside method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE ("users"."#{column}" <= '#{@start.to_s(:db)}' and "users"."#{column}" >= '#{@stop.to_s(:db)}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} <= '#{@start.to_s(:db)}' and #{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} >= '#{@stop.to_s(:db)}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_outside", @start, @stop).to_sql
           end
@@ -96,19 +96,19 @@ class DatetimeTest < Test::Unit::TestCase
           end
           should "set the correct expected values for a #{column}_in_year method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE (year("users"."#{column}") = '#{@year}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (year(#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column}) = '#{@year}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_in_year", @year).to_sql
           end
           should "set the correct expected values for a #{column}_in_month method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE (month("users"."#{column}") = '#{@month}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (month(#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column}) = '#{@month}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_in_month", @month).to_sql
           end
           should "set the correct expected values for a #{column}_in_day method" do
             expected =<<-SQL
-            SELECT "users".* FROM "users" WHERE (day("users"."#{column}") = '#{@day}')
+            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (day(#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column}) = '#{@day}')
             SQL
             assert_equal expected.strip, @class.send(:"#{column}_in_day", @day).to_sql
           end

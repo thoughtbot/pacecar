@@ -8,37 +8,37 @@ class StateTest < Test::Unit::TestCase
     end
     should "set the correct expected values for a column_state _state method" do
       expected =<<-SQL
-      SELECT "posts".* FROM "posts" WHERE ("posts"."publication_state" = 'Draft')
+      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "publication_state"} = 'Draft')
       SQL
       assert_equal expected.strip, @class.publication_state_draft.to_sql
     end
     should "set the correct expected values for a column_not_state _state method" do
       expected =<<-SQL
-      SELECT "posts".* FROM "posts" WHERE ("posts"."publication_state" <> 'Draft')
+      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "publication_state"} <> 'Draft')
       SQL
       assert_equal expected.strip, @class.publication_state_not_draft.to_sql
     end
     should "set the correct expected values for a column_state _type method" do
       expected =<<-SQL
-      SELECT "posts".* FROM "posts" WHERE ("posts"."post_type" = 'PostModern')
+      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "post_type"} = 'PostModern')
       SQL
       assert_equal expected.strip, @class.post_type_postmodern.to_sql
     end
     should "set the correct expected values for a column_not_state _type method" do
       expected =<<-SQL
-      SELECT "posts".* FROM "posts" WHERE ("posts"."post_type" <> 'PostModern')
+      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "post_type"} <> 'PostModern')
       SQL
       assert_equal expected.strip, @class.post_type_not_postmodern.to_sql
     end
     should "set the correct expected values for a column_state method" do
       expected =<<-SQL
-      SELECT "posts".* FROM "posts" WHERE ("posts"."post_type" = 'PostModern')
+      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "post_type"} = 'PostModern')
       SQL
       assert_equal expected.strip, @class.post_type('PostModern').to_sql
     end
     should "set the correct expected values for a column_state_not method" do
       expected =<<-SQL
-      SELECT "posts".* FROM "posts" WHERE ("posts"."post_type" <> 'PostModern')
+      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "post_type"} <> 'PostModern')
       SQL
       assert_equal expected.strip, @class.post_type_not('PostModern').to_sql
     end

@@ -9,13 +9,13 @@ class PresenceTest < Test::Unit::TestCase
     context "with presence methods" do
       should "set the correct expected values for a _present column method" do
         expected =<<-SQL
-        SELECT "users".* FROM "users" WHERE ("users"."first_name" IS NOT NULL)
+        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "first_name"} IS NOT NULL)
         SQL
         assert_equal expected.strip, @class.first_name_present.to_sql
       end
       should "set the correct expected values for a _missing column method" do
         expected =<<-SQL
-        SELECT "users".* FROM "users" WHERE ("users"."first_name" IS NULL)
+        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "first_name"} IS NULL)
         SQL
         assert_equal expected.strip, @class.first_name_missing.to_sql
       end

@@ -12,19 +12,19 @@ class DurationTest < Test::Unit::TestCase
       end
       should "set the correct expected values for a with_duration_of datetime column method" do
         expected =<<-SQL
-        SELECT "users".* FROM "users" WHERE (datediff("users"."created_at", "users"."updated_at") = #{@days})
+        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (datediff(#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "created_at"}, #{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "updated_at"}) = #{@days})
         SQL
         assert_equal expected.strip, @class.with_duration_of(@days, :created_at, :updated_at).to_sql
       end
       should "set the correct expected values for a with_duration_over datetime column method" do
         expected =<<-SQL
-        SELECT "users".* FROM "users" WHERE (datediff("users"."created_at", "users"."updated_at") > #{@days})
+        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (datediff(#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "created_at"}, #{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "updated_at"}) > #{@days})
         SQL
         assert_equal expected.strip, @class.with_duration_over(@days, :created_at, :updated_at).to_sql
       end
       should "set the correct expected values for a with_duration_under datetime column method" do
         expected =<<-SQL
-        SELECT "users".* FROM "users" WHERE (datediff("users"."created_at", "users"."updated_at") < #{@days})
+        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (datediff(#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "created_at"}, #{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "updated_at"}) < #{@days})
         SQL
         assert_equal expected.strip, @class.with_duration_under(@days, :created_at, :updated_at).to_sql
       end

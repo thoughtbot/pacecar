@@ -44,10 +44,25 @@ module Pacecar
       protected
 
       def safe_columns
-        begin
-          columns
-        rescue ActiveRecord::StatementInvalid # If the table does not exist
-          Array.new
+        case ActiveRecord::Base.connection.adapter_name
+        when 'MySQL'
+          begin
+            columns
+          rescue Mysql::Error
+            Array.new
+          end
+        when 'Mysql2'
+          begin
+            columns
+          rescue Mysql2::Error
+            Array.new
+          end
+        when 'SQLite'
+          begin
+            columns
+          rescue ActiveRecord::StatementInvalid # If the table does not exist
+            Array.new
+          end
         end
       end
 

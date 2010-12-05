@@ -14,8 +14,8 @@ module Pacecar
 
       def define_boolean_scopes
         boolean_column_names.each do |name|
-          scope name.to_sym, :conditions => ["#{quoted_table_name}.\"#{name}\" = ?", true]
-          scope "not_#{name}".to_sym, :conditions => ["#{quoted_table_name}.\"#{name}\" = ?", false]
+          scope name.to_sym, :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} = ?", true]
+          scope "not_#{name}".to_sym, :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} = ?", false]
         end
       end
 

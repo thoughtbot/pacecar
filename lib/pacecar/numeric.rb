@@ -15,10 +15,10 @@ module Pacecar
         numeric_column_names.each do |name|
           { :greater_than => '>', :less_than => '<' }.each do |method_name, symbol|
             scope "#{name}_#{method_name}".to_sym, lambda { |value|
-              { :conditions => ["#{quoted_table_name}.\"#{name}\" #{symbol} ?", value] }
+              { :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} #{symbol} ?", value] }
             }
             scope "#{name}_#{method_name}_or_equal_to".to_sym, lambda { |value|
-              { :conditions => ["#{quoted_table_name}.\"#{name}\" #{symbol}= ?", value] }
+              { :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} #{symbol}= ?", value] }
             }
           end
         end

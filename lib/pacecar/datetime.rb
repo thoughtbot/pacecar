@@ -48,15 +48,28 @@ module Pacecar
       end
 
       def define_in_date_scopes(name)
-        scope "#{name}_in_year".to_sym, lambda { |year|
-          { :conditions => ["year(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", year.to_i] }
-        }
-        scope "#{name}_in_month".to_sym, lambda { |month|
-          { :conditions => ["month(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", month.to_i] }
-        }
-        scope "#{name}_in_day".to_sym, lambda { |day|
-          { :conditions => ["day(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", day.to_i] }
-        }
+        case connection.adapter_name
+        when 'MySQL', 'MySQL2'
+          scope "#{name}_in_year".to_sym, lambda { |year|
+            { :conditions => ["year(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", year.to_i] }
+          }
+          scope "#{name}_in_month".to_sym, lambda { |month|
+            { :conditions => ["month(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", month.to_i] }
+          }
+          scope "#{name}_in_day".to_sym, lambda { |day|
+            { :conditions => ["day(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", day.to_i] }
+          }
+        when 'SQLite'
+          scope "#{name}_in_year".to_sym, lambda { |year|
+            { :conditions => ["strftime('%Y', #{quoted_table_name}.#{connection.quote_column_name name}) = ?", sprintf('%04d', year)] }
+          }
+          scope "#{name}_in_month".to_sym, lambda { |month|
+            { :conditions => ["strftime('%m', #{quoted_table_name}.#{connection.quote_column_name name}) = ?", sprintf('%02d', month)] }
+          }
+          scope "#{name}_in_day".to_sym, lambda { |day|
+            { :conditions => ["strftime('%d', #{quoted_table_name}.#{connection.quote_column_name name}) = ?", sprintf('%02d', day)] }
+          }
+        end
       end
 
       def now

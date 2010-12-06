@@ -1,121 +1,80 @@
 require 'test_helper'
 
-class DatetimeTest < Test::Unit::TestCase
+class DatetimeTest < ActiveSupport::TestCase
 
-  context "A class which has included Pacecar" do
-    setup do
-      @class = User
+  setup do
+    date = DateTime.parse '2000-01-01'
+    @abe = Factory :user, :created_at => date, :rejected_at => date, :updated_at => date, :last_posted_on => date, :approved_at => date
+
+    date = DateTime.parse '2005-05-05'
+    @bob = Factory :user, :created_at => date, :rejected_at => date, :updated_at => date, :last_posted_on => date, :approved_at => date
+
+    date = DateTime.parse '2010-10-10'
+    @fox = Factory :user, :created_at => date, :rejected_at => date, :updated_at => date, :last_posted_on => date, :approved_at => date
+  end
+
+  [:created_at, :rejected_at, :updated_at, :last_posted_on, :approved_at].each do |column|
+    test "set the correct expected values for a #{column}_before method" do
+      date = DateTime.parse '2003-01-01'
+      assert_equal [@abe], User.send(:"#{column}_before", date)
     end
-    context "for each date and datetime column" do
-      [:created_at, :rejected_at, :updated_at, :last_posted_on, :approved_at].each do |column|
-        context "with before and after methods for #{column}" do
-          setup do
-            @time = 5.days.ago.to_datetime
-          end
-          should "set the correct expected values for a #{column}_before method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} <= '#{@time.to_s(:db)}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_before", @time).to_sql
-          end
-          should "set the correct expected values for a after_ datetime column method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} >= '#{@time.to_s(:db)}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_after", @time).to_sql
-          end
-        end
 
-        context "with in_past and in_future methods" do
-          setup do
-            assert_nil Time.zone_default
-            @now = Time.now.utc.to_datetime
-            @class.stubs(:now).returns @now
-          end
-          should "set the correct expected values for a #{column}_in_past method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} <= '#{@now.to_s(:db)}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_in_past").to_sql
-          end
-          should "set the correct expected values for a #{column}_in_future datetime column method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} >= '#{@now.to_s(:db)}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_in_future").to_sql
-          end
-        end
-
-        context "with in_past and in_future methods given a zone_default" do
-          setup do
-            Time.zone_default = Time.__send__(:get_zone, "UTC")
-            @now = Time.zone_default.now.to_datetime
-            Time.zone_default.stubs(:now).returns @now
-          end
-          teardown do
-            Time.zone_default = nil
-          end
-          should "set the correct expected values for a #{column}_in_past method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} <= '#{@now.to_s(:db)}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_in_past", @time).to_sql
-          end
-          should "set the correct expected values for a #{column}_in_future datetime column method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} >= '#{@now.to_s(:db)}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_in_future", @time).to_sql
-          end
-        end
-
-        context "with _inside and _outside methods" do
-          setup do
-            @start = 3.days.ago.to_datetime
-            @stop = 2.days.ago.to_datetime
-          end
-          should "set the correct expected values for a #{column}_inside method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} >= '#{@start.to_s(:db)}' and #{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} <= '#{@stop.to_s(:db)}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_inside", @start, @stop).to_sql
-          end
-          should "set the correct expected values for a #{column}_outside method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} <= '#{@start.to_s(:db)}' and #{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column} >= '#{@stop.to_s(:db)}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_outside", @start, @stop).to_sql
-          end
-        end
-
-        context "with year month and day methods" do
-          setup do
-            @year = '2000'
-            @month = '01'
-            @day = '01'
-          end
-          should "set the correct expected values for a #{column}_in_year method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (year(#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column}) = '#{@year}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_in_year", @year).to_sql
-          end
-          should "set the correct expected values for a #{column}_in_month method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (month(#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column}) = '#{@month}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_in_month", @month).to_sql
-          end
-          should "set the correct expected values for a #{column}_in_day method" do
-            expected =<<-SQL
-            SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (day(#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name column}) = '#{@day}')
-            SQL
-            assert_equal expected.strip, @class.send(:"#{column}_in_day", @day).to_sql
-          end
-        end
-
-      end
+    test "set the correct expected values for a #{column}_after datetime column method" do
+      date = DateTime.parse '2007-01-01'
+      assert_equal [@fox], User.send(:"#{column}_after", date)
     end
+
+    test "set the correct expected values for a #{column}_in_past method without a zone default" do
+      assert_nil Time.zone_default
+      now = DateTime.parse '2007-01-01'
+      User.stubs(:now).returns now
+      assert_equal [@abe, @bob], User.send(:"#{column}_in_past")
+    end
+
+    test "set the correct expected values for a #{column}_in_future datetime column method without a zone default" do
+      assert_nil Time.zone_default
+      now = DateTime.parse '2007-01-01'
+      User.stubs(:now).returns now
+      assert_equal [@fox], User.send(:"#{column}_in_future")
+    end
+
+    test "set the correct expected values for a #{column}_in_past method given a zone_default" do
+      Time.zone_default = Time.__send__(:get_zone, "UTC")
+      now = DateTime.parse '2007-01-01'
+      Time.zone_default.stubs(:now).returns now
+      assert_equal [@abe, @bob], User.send(:"#{column}_in_past")
+      Time.zone_default = nil
+    end
+
+    test "set the correct expected values for a #{column}_in_future datetime column method given a zone_default" do
+      Time.zone_default = Time.__send__(:get_zone, "UTC")
+      now = DateTime.parse '2007-01-01'
+      Time.zone_default.stubs(:now).returns now
+      assert_equal [@fox], User.send(:"#{column}_in_future")
+      Time.zone_default = nil
+    end
+
+    test "set the correct expected values for a #{column}_inside method" do
+      start = DateTime.parse '2003-01-01'
+      stop = DateTime.parse '2007-01-01'
+      assert_equal [@bob], User.send(:"#{column}_inside", start, stop)
+    end
+    test "set the correct expected values for a #{column}_outside method" do
+      start = DateTime.parse '2003-01-01'
+      stop = DateTime.parse '2007-01-01'
+      assert_equal [@abe, @fox], User.send(:"#{column}_outside", start, stop)
+    end
+
+    test "set the correct expected values for a #{column}_in_year method" do
+      assert_equal [@abe], User.send(:"#{column}_in_year", '2000')
+    end
+    test "set the correct expected values for a #{column}_in_month method" do
+      assert_equal [@bob], User.send(:"#{column}_in_month", '05')
+    end
+    test "set the correct expected values for a #{column}_in_day method" do
+      assert_equal [@fox], User.send(:"#{column}_in_day", '10')
+    end
+
   end
 
 end

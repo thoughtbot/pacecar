@@ -1,32 +1,25 @@
 require 'test_helper'
 
-class LimitTest < Test::Unit::TestCase
+class LimitTest < ActiveSupport::TestCase
 
-  context "A class which has included Pacecar" do
-    setup do
-      @class = User
-    end
-    context "with order methods" do
-      should "set the correct expected values for a by_ column method" do
-        expected =<<-SQL
-        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} LIMIT 10
-        SQL
-        assert_equal expected.strip, @class.limited.to_sql
-      end
-      should "set the correct expected values for a by_ column method when sent args" do
-        expected =<<-SQL
-        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} LIMIT 20
-        SQL
-        assert_equal expected.strip, @class.limited(20).to_sql
-      end
-      should "set the correct expected values for a by_ column method when per_page defined" do
-        @class.expects(:per_page).returns 30
-        expected =<<-SQL
-        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} LIMIT 30
-        SQL
-        assert_equal expected.strip, @class.limited.to_sql
-      end
-    end
+  setup do
+    50.times { Factory :user }
+  end
+
+  test "set the correct expected values for a by_ column method" do
+    assert_equal 50, User.count
+    assert_equal 10, User.limited.all.size
+  end
+
+  test "set the correct expected values for a by_ column method when sent args" do
+    assert_equal 50, User.count
+    assert_equal 20, User.limited(20).all.size
+  end
+
+  test "set the correct expected values for a by_ column method when per_page defined" do
+    User.expects(:per_page).returns 30
+    assert_equal 50, User.count
+    assert_equal 30, User.limited.all.size
   end
 
 end

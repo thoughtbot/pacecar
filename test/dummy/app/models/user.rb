@@ -8,6 +8,6 @@ class User < ActiveRecord::Base
 
   has_ranking :comments
   has_recent_records :comments
-  has_recent_records :articles, :comments
+  has_recent_records :posts, :comments
 
 end

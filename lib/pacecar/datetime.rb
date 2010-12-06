@@ -43,19 +43,19 @@ module Pacecar
           { :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} >= ? and #{quoted_table_name}.#{connection.quote_column_name name} <= ?", start, stop] }
         }
         scope "#{name}_outside".to_sym, lambda { |start, stop|
-          { :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} <= ? and #{quoted_table_name}.#{connection.quote_column_name name} >= ?", start, stop] }
+          { :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} <= ? or #{quoted_table_name}.#{connection.quote_column_name name} >= ?", start, stop] }
         }
       end
 
       def define_in_date_scopes(name)
         scope "#{name}_in_year".to_sym, lambda { |year|
-          { :conditions => ["year(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", year] }
+          { :conditions => ["year(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", year.to_i] }
         }
         scope "#{name}_in_month".to_sym, lambda { |month|
-          { :conditions => ["month(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", month] }
+          { :conditions => ["month(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", month.to_i] }
         }
         scope "#{name}_in_day".to_sym, lambda { |day|
-          { :conditions => ["day(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", day] }
+          { :conditions => ["day(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", day.to_i] }
         }
       end
 

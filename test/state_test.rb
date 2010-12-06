@@ -1,81 +1,65 @@
 require 'test_helper'
 
-class StateTest < Test::Unit::TestCase
+class StateTest < ActiveSupport::TestCase
 
-  context "A class which has included Pacecar" do
-    setup do
-      @class = Post
-    end
-    should "set the correct expected values for a column_state _state method" do
-      expected =<<-SQL
-      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "publication_state"} = 'Draft')
-      SQL
-      assert_equal expected.strip, @class.publication_state_draft.to_sql
-    end
-    should "set the correct expected values for a column_not_state _state method" do
-      expected =<<-SQL
-      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "publication_state"} <> 'Draft')
-      SQL
-      assert_equal expected.strip, @class.publication_state_not_draft.to_sql
-    end
-    should "set the correct expected values for a column_state _type method" do
-      expected =<<-SQL
-      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "post_type"} = 'PostModern')
-      SQL
-      assert_equal expected.strip, @class.post_type_postmodern.to_sql
-    end
-    should "set the correct expected values for a column_not_state _type method" do
-      expected =<<-SQL
-      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "post_type"} <> 'PostModern')
-      SQL
-      assert_equal expected.strip, @class.post_type_not_postmodern.to_sql
-    end
-    should "set the correct expected values for a column_state method" do
-      expected =<<-SQL
-      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "post_type"} = 'PostModern')
-      SQL
-      assert_equal expected.strip, @class.post_type('PostModern').to_sql
-    end
-    should "set the correct expected values for a column_state_not method" do
-      expected =<<-SQL
-      SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} WHERE (#{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "post_type"} <> 'PostModern')
-      SQL
-      assert_equal expected.strip, @class.post_type_not('PostModern').to_sql
-    end
+  setup do
+    @draft_post = Factory :post, :publication_state => 'Draft'
+    @final_post = Factory :post, :publication_state => 'Final'
+    @free_post = Factory :post, :post_type => 'Free'
+    @open_post = Factory :post, :post_type => 'Open'
+
+    @post = Post.new
+    assert_not_nil Post::PUBLICATION_STATES
   end
 
-  context "A Post" do
-    setup do
-      @post = Post.new
-      assert_not_nil Post::PUBLICATION_STATES
+  test "set the correct expected values for a column_state _state method" do
+    assert_equal [@draft_post], Post.publication_state_draft
+  end
+
+  test "set the correct expected values for a column_not_state _state method" do
+    assert_equal [@final_post], Post.publication_state_not_draft
+  end
+
+  test "set the correct expected values for a column_state _type method" do
+    assert_equal [@free_post], Post.post_type_free
+  end
+
+  test "set the correct expected values for a column_not_state _type method" do
+    assert_equal [@open_post], Post.post_type_not_free
+  end
+
+  test "set the correct expected values for a column_state method" do
+    assert_equal [@open_post], Post.post_type('Open')
+  end
+
+  test "set the correct expected values for a column_state_not method" do
+    assert_equal [@free_post], Post.post_type_not('Open')
+  end
+
+  Post::PUBLICATION_STATES.each do |state|
+    test "have a query method for a #{state} state value" do
+      assert @post.respond_to?("publication_state_#{state.downcase}?")
     end
-    Post::PUBLICATION_STATES.each do |state|
-      context "with a #{state} state value" do
-        should "have a query method" do
-          assert @post.respond_to?("publication_state_#{state.downcase}?")
-        end
-        should "have a non query method" do
-          assert @post.respond_to?("publication_state_not_#{state.downcase}?")
-        end
-        context "when in that state" do
-          setup { @post.publication_state = state }
-          should "respond true to query method" do
-            assert @post.send("publication_state_#{state.downcase}?")
-          end
-          should "respond false to not query method" do
-            assert ! @post.send("publication_state_not_#{state.downcase}?")
-          end
-        end
-        context "when not in that state" do
-          setup { @post.publication_state = 'Invalid' }
-          should "respond false to query method" do
-            assert ! @post.send("publication_state_#{state.downcase}?")
-          end
-          should "respond true to not query method" do
-            assert @post.send("publication_state_not_#{state.downcase}?")
-          end
-        end
-      end
+    test "have a non query method for a #{state} state value" do
+      assert @post.respond_to?("publication_state_not_#{state.downcase}?")
+    end
+
+    test "respond true to query method for a #{state} state value when in that state" do
+      @post.publication_state = state
+      assert @post.send("publication_state_#{state.downcase}?")
+    end
+    test "respond false to not query method for a #{state} state value when in that state" do
+      @post.publication_state = state
+      assert ! @post.send("publication_state_not_#{state.downcase}?")
+    end
+
+    test "respond false to query method for a #{state} state value when not in that state" do
+      @post.publication_state = 'Invalid'
+      assert ! @post.send("publication_state_#{state.downcase}?")
+    end
+    test "respond true to not query method for a #{state} state value when not in that state" do
+      @post.publication_state = 'Invalid'
+      assert @post.send("publication_state_not_#{state.downcase}?")
     end
   end
 

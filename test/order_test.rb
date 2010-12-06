@@ -1,31 +1,22 @@
 require 'test_helper'
 
-class OrderTest < Test::Unit::TestCase
+class OrderTest < ActiveSupport::TestCase
 
-  context "A class which has included Pacecar" do
-    setup do
-      @class = User
-    end
-    context "with order methods" do
-      should "set the correct expected values for a by_ column method with no args" do
-        expected =<<-SQL
-        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} ORDER BY #{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "first_name"} asc
-        SQL
-        assert_equal expected.strip, @class.by_first_name.to_sql
-      end
-      should "set the correct expected values for a by_ column method with asc args" do
-        expected =<<-SQL
-        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} ORDER BY #{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "first_name"} asc
-        SQL
-        assert_equal expected.strip, @class.by_first_name(:asc).to_sql
-      end
-      should "set the correct expected values for a by_ column method with desc args" do
-        expected =<<-SQL
-        SELECT #{@class.quoted_table_name}.* FROM #{@class.quoted_table_name} ORDER BY #{@class.quoted_table_name}.#{ActiveRecord::Base.connection.quote_column_name "first_name"} desc
-        SQL
-        assert_equal expected.strip, @class.by_first_name(:desc).to_sql
-      end
-    end
+  setup do
+    @first = Factory :user, :first_name => 'Abe'
+    @last  = Factory :user, :first_name => 'Zed'
+  end
+
+  test "set the correct expected values for a by_ column method with no args" do
+    assert_equal [@first, @last], User.by_first_name
+  end
+
+  test "set the correct expected values for a by_ column method with asc args" do
+    assert_equal [@first, @last], User.by_first_name(:asc)
+  end
+
+  test "set the correct expected values for a by_ column method with desc args" do
+    assert_equal [@last, @first], User.by_first_name(:desc)
   end
 
 end

@@ -13,10 +13,6 @@ require 'rake/testtask'
 
 require 'appraisal'
 
-if ENV['BUNDLE_GEMFILE'].match /gemfiles/
-  ENV['CURRENT_APPRAISAL'] = ENV['BUNDLE_GEMFILE'].split('/').last
-end
-
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.libs << 'test'

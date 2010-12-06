@@ -59,6 +59,16 @@ module Pacecar
           scope "#{name}_in_day".to_sym, lambda { |day|
             { :conditions => ["day(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", day.to_i] }
           }
+        when 'PostgreSQL'
+          scope "#{name}_in_year".to_sym, lambda { |year|
+            { :conditions => ["extract(year from #{quoted_table_name}.#{connection.quote_column_name name}) = ?", year.to_i] }
+          }
+          scope "#{name}_in_month".to_sym, lambda { |month|
+            { :conditions => ["extract(month from #{quoted_table_name}.#{connection.quote_column_name name}) = ?", month.to_i] }
+          }
+          scope "#{name}_in_day".to_sym, lambda { |day|
+            { :conditions => ["extract(day from #{quoted_table_name}.#{connection.quote_column_name name}) = ?", day.to_i] }
+          }
         when 'SQLite'
           scope "#{name}_in_year".to_sym, lambda { |year|
             { :conditions => ["strftime('%Y', #{quoted_table_name}.#{connection.quote_column_name name}) = ?", sprintf('%04d', year)] }

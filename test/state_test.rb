@@ -40,6 +40,7 @@ class StateTest < ActiveSupport::TestCase
     test "have a query method for a #{state} state value" do
       assert @post.respond_to?("publication_state_#{state.downcase}?")
     end
+
     test "have a non query method for a #{state} state value" do
       assert @post.respond_to?("publication_state_not_#{state.downcase}?")
     end
@@ -48,6 +49,7 @@ class StateTest < ActiveSupport::TestCase
       @post.publication_state = state
       assert @post.send("publication_state_#{state.downcase}?")
     end
+
     test "respond false to not query method for a #{state} state value when in that state" do
       @post.publication_state = state
       assert ! @post.send("publication_state_not_#{state.downcase}?")
@@ -57,6 +59,7 @@ class StateTest < ActiveSupport::TestCase
       @post.publication_state = 'Invalid'
       assert ! @post.send("publication_state_#{state.downcase}?")
     end
+
     test "respond true to not query method for a #{state} state value when not in that state" do
       @post.publication_state = 'Invalid'
       assert @post.send("publication_state_not_#{state.downcase}?")

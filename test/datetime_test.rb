@@ -59,6 +59,7 @@ class DatetimeTest < ActiveSupport::TestCase
       stop = DateTime.parse '2007-01-01'
       assert_equal [@bob], User.send(:"#{column}_inside", start, stop)
     end
+
     test "set the correct expected values for a #{column}_outside method" do
       start = DateTime.parse '2003-01-01'
       stop = DateTime.parse '2007-01-01'
@@ -68,9 +69,11 @@ class DatetimeTest < ActiveSupport::TestCase
     test "set the correct expected values for a #{column}_in_year method" do
       assert_equal [@abe], User.send(:"#{column}_in_year", '2000')
     end
+
     test "set the correct expected values for a #{column}_in_month method" do
       assert_equal [@bob], User.send(:"#{column}_in_month", '05')
     end
+
     test "set the correct expected values for a #{column}_in_day method" do
       assert_equal [@fox], User.send(:"#{column}_in_day", '10')
     end

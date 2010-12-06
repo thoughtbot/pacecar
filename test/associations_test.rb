@@ -20,9 +20,11 @@ class AssociationsTest < ActiveSupport::TestCase
   test "set the correct options for a recent methods for one association" do
     assert_equal [@comment_user, @both_user], User.recent_comments_since(5.days.ago)
   end
+
   test "set the correct options for a recent methods combining associations with or" do
     assert_equal [@comment_user, @post_user, @both_user], User.recent_posts_or_comments_since(5.days.ago)
   end
+
   test "set the correct options for a recent methods combining associations with and" do
     assert_equal [@both_user], User.recent_posts_and_comments_since(5.days.ago)
   end

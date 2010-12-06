@@ -49,7 +49,7 @@ module Pacecar
 
       def define_in_date_scopes(name)
         case connection.adapter_name
-        when 'MySQL', 'MySQL2'
+        when 'MySQL', 'Mysql2'
           scope "#{name}_in_year".to_sym, lambda { |year|
             { :conditions => ["year(#{quoted_table_name}.#{connection.quote_column_name name}) = ?", year.to_i] }
           }

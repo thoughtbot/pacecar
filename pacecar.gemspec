@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'pacecar'
-  s.version = '1.4.2'
-  s.date = %q{2010-12-06}
+  s.version = '1.4.3'
+  s.date = %q{2010-12-07}
   s.email = 'mjankowski@thoughtbot.com'
   s.homepage = 'http://github.com/thoughtbot/pacecar'
   s.summary = 'Pacecar adds scope methods to ActiveRecord classes via database column introspection.'

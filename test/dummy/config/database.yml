@@ -30,7 +30,6 @@ mysql2: &mysql2
 
 pg: &pg
   adapter: postgresql
-  host: localhost
   port: 5432
   encoding: utf8
   database: pacecar_test

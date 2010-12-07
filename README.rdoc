@@ -6,7 +6,18 @@ Pacecar automatically includes the Pacecar::Helpers module into all ActiveRecord
 
 To get all Pacecar functionality, you need to "include Pacecar" in your class.
 
+  class User < ActiveRecord::Base
+    include Pacecar
+  end
+
 To get some subset (for example, only the state functionality), you can do something like "include Pacecar::State" to get only the module(s) you want.
+
+  class Post < ActiveRecord::Base
+    include Pacecar::State
+  end
+
+Pacecar supports mysql, postgres and sqlite database drivers.
+
 
 == Installation
 

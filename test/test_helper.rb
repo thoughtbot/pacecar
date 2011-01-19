@@ -21,7 +21,6 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 require 'mocha'
 require 'factory_girl'
 require 'test/factories'
-begin require 'redgreen'; rescue LoadError; end
 
 class ActiveSupport::TestCase
   self.use_transactional_fixtures = true

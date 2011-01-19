@@ -1,8 +1,8 @@
-require 'test_helper'
+require 'spec_helper'
 
-class AssociationsTest < ActiveSupport::TestCase
+describe 'Associations' do
 
-  setup do
+  before do
     @comment_user = Factory :user
     @post_user = Factory :user
     @both_user = Factory :user
@@ -17,16 +17,16 @@ class AssociationsTest < ActiveSupport::TestCase
     Factory :post, :owner => @both_user, :created_at => 3.days.ago
   end
 
-  test "set the correct options for a recent methods for one association" do
-    assert_equal [@comment_user, @both_user], User.recent_comments_since(5.days.ago)
+  it "should set the correct options for a recent methods for one association" do
+    User.recent_comments_since(5.days.ago).should == [@comment_user, @both_user]
   end
 
-  test "set the correct options for a recent methods combining associations with or" do
-    assert_equal [@comment_user, @post_user, @both_user], User.recent_posts_or_comments_since(5.days.ago)
+  it "should set the correct options for a recent methods combining associations with or" do
+    User.recent_posts_or_comments_since(5.days.ago).should == [@comment_user, @post_user, @both_user]
   end
 
-  test "set the correct options for a recent methods combining associations with and" do
-    assert_equal [@both_user], User.recent_posts_and_comments_since(5.days.ago)
+  it "should set the correct options for a recent methods combining associations with and" do
+    User.recent_posts_and_comments_since(5.days.ago).should == [@both_user]
   end
 
 end

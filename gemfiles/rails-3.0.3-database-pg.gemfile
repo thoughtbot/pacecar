@@ -3,6 +3,8 @@
 source "http://rubygems.org"
 gem "pg"
 gem "rails", "3.0.3"
+gem "rspec-rails", ">= 2.4.0"
 gem "mocha"
 gem "appraisal"
+gem "capybara", ">= 0.4.0"
 gem "factory_girl_rails"

@@ -4,7 +4,7 @@ describe 'Helpers' do
 
   describe "A class without a db table" do
     it "should return an empty array when asked about #safe_columns" do
-      Article.safe_columns.should == []
+      Article.send(:safe_columns).should == []
     end
 
     it "should survive an include of Pacecar" do

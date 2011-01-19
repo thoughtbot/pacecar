@@ -26,7 +26,7 @@ describe 'Datetime' do
       end
     end
 
-    descibe "past and future methods" do
+    describe "past and future methods" do
       it "should set the correct expected values for a #{column}_in_past method without a zone default" do
         Time.zone_default = nil
         Time.zone_default.should == nil

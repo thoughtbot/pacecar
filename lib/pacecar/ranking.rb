@@ -17,7 +17,7 @@ module Pacecar
         scope "#{name}_#{association}",
         :select => "#{quoted_table_name}.*, count(#{reflections[association].quoted_table_name}.#{connection.quote_column_name reflections[association].primary_key_name}) as #{association}_count",
         :joins => "inner join #{association} on #{association}.#{reflections[association].primary_key_name} = #{quoted_table_name}.#{connection.quote_column_name primary_key}",
-        :group => safe_column_names.collect { |name| "#{quoted_table_name}.#{connection.quote_column_name(name)}" }.join(', '),
+        :group => safe_column_names.collect { |column_name| "#{quoted_table_name}.#{connection.quote_column_name(column_name)}" }.join(', '),
         :order => "#{association}_count #{direction}"
       end
 

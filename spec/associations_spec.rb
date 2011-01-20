@@ -31,7 +31,6 @@ describe 'Associations', 'has recent records' do
 
 end
 
-
 describe 'Associations', 'has calculated records' do
   before do
     @user_one = Factory :user

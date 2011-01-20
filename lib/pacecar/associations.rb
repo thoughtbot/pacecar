@@ -8,19 +8,11 @@ module Pacecar
 
       def has_calculated_records(*names)
         opts = names.extract_options!
-        names.each do |name|
+        names.each do |association_name|
           *columns = opts[:on] || []
           columns.flatten.each do |column|
-            { 'highest' => 'desc', 'lowest' => 'asc' }.each do |direction_name, direction|
-              { 'average' => 'avg', 'total' => 'sum' }.each do |function_name, function_method|
-                scope "by_#{name}_#{direction_name}_#{column}_#{function_name}".to_sym, {
-                  :select => "#{quoted_table_name}.*, #{function_method}(#{connection.quote_table_name(name)}.#{connection.quote_column_name column}) as #{name}_#{column}_#{function_name}",
-                  :joins => "inner join #{connection.quote_table_name(name)} on #{connection.quote_table_name(name)}.#{connection.quote_column_name reflections[name.to_sym].primary_key_name} = #{quoted_table_name}.#{connection.quote_column_name primary_key}",
-                  :group => safe_column_names.collect { |column_name| "#{quoted_table_name}.#{connection.quote_column_name(column_name)}" }.join(', '),
-                  :order => "#{name}_#{column}_#{function_name} #{direction}"
-                }
-              end
-            end
+            define_calculated_scope association_name, column, :average, :avg
+            define_calculated_scope association_name, column, :total, :sum
           end
         end
       end
@@ -51,6 +43,17 @@ module Pacecar
 
       def conditions_for_name(name)
         "((select count(*) from #{connection.quote_table_name(name)} where #{connection.quote_table_name(name)}.#{connection.quote_column_name reflections[name].primary_key_name} = #{quoted_table_name}.#{connection.quote_column_name primary_key} and #{connection.quote_table_name(name)}.#{connection.quote_column_name("created_at")} > :since_time) > 0)"
+      end
+
+      def define_calculated_scope(association_name, column, function_name, function_method)
+        { 'highest' => 'desc', 'lowest' => 'asc' }.each do |direction_name, direction|
+          scope "by_#{association_name}_#{direction_name}_#{column}_#{function_name}".to_sym, {
+            :select => "#{quoted_table_name}.*, #{function_method}(#{connection.quote_table_name(association_name)}.#{connection.quote_column_name column}) as #{association_name}_#{column}_#{function_name}",
+            :joins => "inner join #{connection.quote_table_name(association_name)} on #{connection.quote_table_name(association_name)}.#{connection.quote_column_name reflections[association_name].primary_key_name} = #{quoted_table_name}.#{connection.quote_column_name primary_key}",
+            :group => safe_column_names.collect { |column_name| "#{quoted_table_name}.#{connection.quote_column_name(column_name)}" }.join(', '),
+            :order => "#{association_name}_#{column}_#{function_name} #{direction}"
+          }
+        end
       end
 
     end

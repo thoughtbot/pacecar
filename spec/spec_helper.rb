@@ -1,3 +1,5 @@
+$: << File.dirname(__FILE__)
+
 # Configure Rails Envinronment
 ENV["RAILS_ENV"] = "test"
 
@@ -35,4 +37,4 @@ RSpec.configure do |config|
 end
 
 require 'factory_girl'
-require 'spec/factories'
+require 'factories'

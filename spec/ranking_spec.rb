@@ -11,11 +11,17 @@ describe 'Ranking' do
   end
 
   it "should set the correct expected values on a maximum_ column method" do
-    User.maximum_comments.should == [@many, @few]
+    output = User.maximum_comments
+    output.should == [@many, @few]
+    output.first.comments_count.to_i.should == 5
+    output.last.comments_count.to_i.should == 2
   end
 
   it "should set the correct expected values on a minimum_ column method" do
-    User.minimum_comments.should == [@few, @many]
+    output = User.minimum_comments
+    output.should == [@few, @many]
+    output.first.comments_count.to_i.should == 2
+    output.last.comments_count.to_i.should == 5
   end
 
 end

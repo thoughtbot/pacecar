@@ -14,7 +14,7 @@ describe 'Helpers' do
 
   describe "A class with a db table" do
     it "should  should return columns for #safe_column_names" do
-      Comment.safe_column_names.should == ['id', 'user_id', 'description', 'created_at', 'updated_at']
+      Comment.safe_column_names.should == ['id', 'user_id', 'description', 'rating', 'created_at', 'updated_at']
     end
   end
 

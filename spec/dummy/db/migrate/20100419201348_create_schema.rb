@@ -24,6 +24,7 @@ class CreateSchema < ActiveRecord::Migration
     create_table :comments, :force => true do |t|
       t.integer :user_id
       t.text :description
+      t.integer :rating
       t.timestamps
     end
     create_table :mammals, :force => true do |t|

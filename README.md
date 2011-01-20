@@ -56,6 +56,7 @@ Assuming a database schema...
         create_table :comments, :force => true do |t|
           t.integer :user_id
           t.text :description
+          t.integer :rating
           t.timestamps
         end
       end
@@ -71,6 +72,7 @@ And some basic model declarations...
       has_ranking :comments
       has_recent_records :comments
       has_recent_records :articles, :comments
+      has_calculated_records :comments, :on => :rating
     end
   
     class Post < ActiveRecord::Base
@@ -198,6 +200,16 @@ Records with associated records since a certain time...
     User.recent_comments_since(2.days.ago)
     User.recent_comments_and_posts_since(3.days.ago)
     User.recent_comments_or_posts_since(4.days.ago)
+
+Records with highest and lowest association column average...
+
+    User.by_comments_highest_rating_average
+    User.by_comments_lowest_rating_average
+
+Records with highest and lowest association column total...
+
+    User.by_comments_highest_rating_total
+    User.by_comments_lowest_rating_total
 
 State columns
 -------------

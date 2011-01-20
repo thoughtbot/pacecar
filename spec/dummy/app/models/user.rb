@@ -9,5 +9,6 @@ class User < ActiveRecord::Base
   has_ranking :comments
   has_recent_records :comments
   has_recent_records :posts, :comments
+  has_calculated_records :comments, :on => :rating
 
 end

@@ -2,7 +2,7 @@
 
 source "http://rubygems.org"
 gem "pg"
-gem "rails", "3.0.3"
+gem "rails", "3.0.6"
 gem "rspec-rails", ">= 2.4.0"
 gem "mocha"
 gem "appraisal"

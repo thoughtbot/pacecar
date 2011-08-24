@@ -259,6 +259,7 @@ Supported Databases
 
 * MySQL
 * SQLite
+* Postgres
 
 Credits
 -------

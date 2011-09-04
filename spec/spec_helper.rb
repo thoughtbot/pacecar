@@ -1,5 +1,3 @@
-$: << File.dirname(__FILE__)
-
 # Configure Rails Envinronment
 ENV["RAILS_ENV"] = "test"
 

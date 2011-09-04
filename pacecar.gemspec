@@ -6,6 +6,6 @@ Gem::Specification.new do |s|
   s.homepage = 'http://github.com/thoughtbot/pacecar'
   s.summary = 'Pacecar adds scope methods to ActiveRecord classes via database column introspection.'
   s.description = 'Generated scopes for ActiveRecord classes.'
-  s.files = ["init.rb", "README*", "MIT-LICENSE", "{lib/**/*}"].map { |glob| Dir[glob] }.flatten
+  s.files = Dir["{lib}/**/*"] + ["init.rb", "MIT-LICENSE", "Rakefile", "Gemfile", "README.md"]
   s.authors = ['Matt Jankowski']
 end

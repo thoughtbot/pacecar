@@ -7,16 +7,20 @@ rescue LoadError
 end
 
 require 'rake'
-require 'rake/rdoctask'
+require 'rdoc/task'
+require 'appraisal'
 
 require 'rspec/core'
 require 'rspec/core/rake_task'
-
-require 'appraisal'
-
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => :spec
+desc "Default: run the unit tests."
+task :default => [:all]
+
+desc 'Test the plugin under all supported Rails versions.'
+task :all => ["appraisal:install"] do |t|
+  exec('rake appraisal spec')
+end
 
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'

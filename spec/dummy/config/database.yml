@@ -1,5 +1,5 @@
 # SQLite version 3.x
-#   gem install sqlite3-ruby (not necessary on OS X Leopard)
+#   gem install sqlite3
 development:
   adapter: sqlite3
   database: db/development.sqlite3
@@ -7,6 +7,12 @@ development:
   timeout: 5000
 
 sqlite3-ruby: &sqlite3-ruby
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000
+
+sqlite3: &sqlite3
   adapter: sqlite3
   database: db/test.sqlite3
   pool: 5
@@ -36,7 +42,7 @@ pg: &pg
 
 # This is because of appraisal - find the gem which was loaded, and use that driver
 test: 
-  <<: *<%= Gem.loaded_specs.keys.select { |key| ['sqlite3-ruby', 'mysql', 'mysql2', 'pg'].include? key }.first %>
+  <<: *<%= Gem.loaded_specs.keys.select { |key| ['sqlite3-ruby', 'sqlite3', 'mysql', 'mysql2', 'pg'].include? key }.first %>
 
 production:
   adapter: sqlite3

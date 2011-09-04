@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'pacecar'
-  s.version = '1.5.0'
+  s.version = '1.5.1'
   s.date = %q{2011-09-04}
   s.email = 'support@thoughtbot.com'
   s.homepage = 'http://github.com/thoughtbot/pacecar'

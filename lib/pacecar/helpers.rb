@@ -48,13 +48,13 @@ module Pacecar
         when 'MySQL'
           begin
             columns
-          rescue Mysql::Error
+          rescue Mysql::Error, ActiveRecord::StatementInvalid
             Array.new
           end
         when 'Mysql2'
           begin
             columns
-          rescue Mysql2::Error
+          rescue Mysql2::Error, ActiveRecord::StatementInvalid
             Array.new
           end
         when 'SQLite', 'PostgreSQL'

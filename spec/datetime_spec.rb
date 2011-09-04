@@ -44,7 +44,7 @@ describe 'Datetime' do
       end
 
       it "should set the correct expected values for a #{column}_in_past method given a zone_default" do
-        Time.zone_default = Time.__send__(:get_zone, "UTC")
+        Time.zone_default = Time.respond_to?(:find_zone!) ? Time.find_zone("UTC") : Time.__send__(:get_zone, "UTC")
         now = DateTime.parse '2007-01-01'
         Time.zone_default.stubs(:now).returns now
         User.send(:"#{column}_in_past").should == [@abe, @bob]
@@ -52,7 +52,7 @@ describe 'Datetime' do
       end
 
       it "should set the correct expected values for a #{column}_in_future datetime column method given a zone_default" do
-        Time.zone_default = Time.__send__(:get_zone, "UTC")
+        Time.zone_default = Time.respond_to?(:find_zone!) ? Time.find_zone("UTC") : Time.__send__(:get_zone, "UTC")
         now = DateTime.parse '2007-01-01'
         Time.zone_default.stubs(:now).returns now
         User.send(:"#{column}_in_future").should == [@fox]

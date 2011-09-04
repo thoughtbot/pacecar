@@ -17,7 +17,7 @@ To get some subset (for example, only the state functionality), you can do somet
       include Pacecar::State
     end
 
-Pacecar supports mysql, postgres and sqlite database drivers.
+Pacecar supports mysql, postgres and sqlite database drivers, and is compatible with Rails 3.0.x and 3.1.x versions.
 
 Installation
 ------------

@@ -27,7 +27,7 @@ module Pacecar
 
       def define_ranking_scope(association, direction_name, direction)
         scope "#{direction_name}_#{association}", {
-          :select => "#{quoted_table_name}.*, count(#{reflections[association].quoted_table_name}.#{connection.quote_column_name reflections[association].primary_key_name}) as #{association}_count",
+          :select => "#{quoted_table_name}.*, count(#{reflections[association].quoted_table_name}.#{connection.quote_column_name (reflections[association].respond_to?(:foreign_key) ? reflections[association].foreign_key : reflections[association].primary_key_name)}) as #{association}_count",
           :order => "#{association}_count #{direction}"
         }.merge(association_group_and_join(association))
       end
@@ -43,7 +43,7 @@ module Pacecar
 
       def association_group_and_join(association_name)
         {
-          :joins => "inner join #{connection.quote_table_name(association_name)} on #{connection.quote_table_name(association_name)}.#{connection.quote_column_name reflections[association_name].primary_key_name} = #{quoted_table_name}.#{connection.quote_column_name primary_key}",
+          :joins => "inner join #{connection.quote_table_name(association_name)} on #{connection.quote_table_name(association_name)}.#{connection.quote_column_name (reflections[association_name].respond_to?(:foreign_key) ? reflections[association_name].foreign_key : reflections[association_name].primary_key_name)} = #{quoted_table_name}.#{connection.quote_column_name primary_key}",
           :group => safe_column_names.collect { |column_name| "#{quoted_table_name}.#{connection.quote_column_name(column_name)}" }.join(', ')
         }
       end

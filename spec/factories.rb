@@ -1,17 +1,26 @@
-Factory.sequence(:age) { |n| n.to_i }
-Factory.sequence(:rating) { |n| n.to_f }
+FactoryGirl.define do
 
-Factory.define :comment do |f|
-  f.association :user
-end
+  sequence :age do |n|
+    n.to_i
+  end
 
-Factory.define :mammal do |f|
-end
+  sequence :rating do |n|
+    n.to_f
+  end
 
-Factory.define :post do |f|
-end
+  factory :comment do
+    association :user
+  end
 
-Factory.define :user do |f|
-  f.age     { Factory.next :age }
-  f.rating  { Factory.next :rating }
+  factory :mammal do
+  end
+
+  factory :post do
+  end
+
+  factory :user do
+    age     { Factory.next :age }
+    rating  { Factory.next :rating }
+  end
+
 end

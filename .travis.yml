@@ -1,0 +1,4 @@
+rvm: 1.9.2
+before_script:
+  - "mysql -e 'create database pacecar_test;' >/dev/null"
+  - "psql -c 'create database pacecar_test;' -U postgres >/dev/null"

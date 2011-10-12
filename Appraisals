@@ -1,4 +1,4 @@
-rails_versions = ['3.0.10', '3.1.0']
+rails_versions = ['3.0.10', '3.1.1']
 database_drivers = ['mysql', 'sqlite3-ruby', 'pg', 'sqlite3']
 
 rails_versions.each do |rails_version|
@@ -11,8 +11,8 @@ rails_versions.each do |rails_version|
 end
 
 # The mysql2 gem needs different versions depending on which activerecord we have
-appraise "rails-3.1.0-database-mysql2" do
-  gem "rails", "3.1.0"
+appraise "rails-3.1.1-database-mysql2" do
+  gem "rails", "3.1.1"
   gem "mysql2", "0.3.7"
 end
 

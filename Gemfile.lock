@@ -120,5 +120,4 @@ DEPENDENCIES
   capybara (>= 0.4.0)
   factory_girl_rails
   mocha
-  rails (= 3.0.3)
   rspec-rails (>= 2.4.0)

@@ -252,7 +252,7 @@ To get all users that have a first_name set, who are admins and approved more th
 
 To get the top 10 commenters...
 
-    User.maximim_comments.limited(10)
+    User.maximum_comments.limited(10)
 
 Supported Databases
 -------------------

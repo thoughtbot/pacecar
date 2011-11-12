@@ -33,7 +33,7 @@ For prior rails versions, there is a rails2 branch to use:
 Usage
 -----
 
-Assuming a database schema...
+Assuming a database schema:
 
     class CreateSchema < ActiveRecord::Migration
       def self.up
@@ -62,7 +62,7 @@ Assuming a database schema...
       end
     end
 
-And some basic model declarations...
+And some basic model declarations:
 
     class User < ActiveRecord::Base
       include Pacecar
@@ -74,7 +74,7 @@ And some basic model declarations...
       has_recent_records :articles, :comments
       has_calculated_records :comments, :on => :rating
     end
-  
+
     class Post < ActiveRecord::Base
       include Pacecar
       PUBLICATION_STATES = %w(Draft Submitted Rejected Accepted)
@@ -84,12 +84,12 @@ And some basic model declarations...
       has_state :post_type, :with => TYPES
       has_polymorph :owner
     end
-  
+
     class Comment < ActiveRecord::Base
       include Pacecar
       belongs_to :user
     end
-  
+
     class Article < ActiveRecord::Base
       belongs_to :user
     end
@@ -97,84 +97,84 @@ And some basic model declarations...
 All columns
 -----------
 
-Records where approved_at is not null, or where it is null...
+Records where approved\_at is not null, or where it is null:
 
     User.approved_at_present
     User.approved_at_missing
 
-Records where first_name is not null, or where it is null...
+Records where first\_name is not null, or where it is null:
 
     User.first_name_present
     User.first_name_missing
 
-Records ordered by first_name (default to 'asc', can specify to override)...
+Records ordered by first\_name (default to 'asc', can specify to override):
 
     User.by_first_name
     User.by_first_name(:asc)
     User.by_first_name(:desc)
 
-Records where an attribute matches a search term (column LIKE "%term%")...
+Records where an attribute matches a search term (column LIKE "%term%"):
 
     User.first_name_matches('John')
 
-Records where an attribute starts or ends with a search term...
+Records where an attribute starts or ends with a search term:
 
     User.first_name_starts_with('A')
     User.first_name_ends_with('a')
 
-Records where an attribute matches exactly a term...
+Records where an attribute matches exactly a term:
 
     User.first_name_equals('John')
 
-Records where any non-state text or string column matches term...
+Records where any non-state text or string column matches term:
 
     User.search_for('test')
 
-Records where any of a list of columns match the term...
+Records where any of a list of columns match the term:
 
     User.search_for 'test', :on => [:first_name, :last_name]
 
-Records where all of a list of columns match the term...
+Records where all of a list of columns match the term:
 
     User.search_for 'test', :on => [:first_name, :last_name], :require => :all
 
 Boolean columns
 ---------------
 
-Records that are all admins or non-admins...
+Records that are all admins or non-admins:
 
     User.admin
     User.not_admin
 
-The "balance" (count of true minus false for column in question)...
+The "balance" (count of true minus false for column in question):
 
     User.admin_balance
 
 Datetime columns
 ----------------
 
-Records approved before or after certain times...
+Records approved before or after certain times:
 
     User.approved_at_before(5.days.ago)
     User.approved_at_after(4.weeks.ago)
 
-Records with approved_at in the past or future...
+Records with approved\_at in the past or future:
 
     User.approved_at_in_past
     User.approved_at_in_future
 
-Records with approved_at inside or outside of two times...
+Records with approved\_at inside or outside of two times:
 
     User.approved_at_inside(10.days.ago, 1.day.ago)
     User.approved_at_outside(2.days.ago, 1.day.ago)
 
-Records with certain year, month or day...
+Records with certain year, month or day:
 
     User.approved_at_in_year(2000)
     User.approved_at_in_month(01)
     User.approved_at_in_day(01)
 
-Records with a duration (time delta between two columns) of, over or under a certain number of days...
+Records with a duration (time delta between two columns) of, over or under a certain number of days:
 
     User.with_duration_of(14, :approved_at, :rejected_at)
     User.with_duration_over(14, :approved_at, :rejected_at)
@@ -183,30 +183,30 @@ Records with a duration (time delta between two columns) of, over or under a cer
 Polymorphic relationships
 -------------------------
 
-Records which have an owner_type of User...
+Records which have an owner\_type of User:
 
     Post.for_owner_type(User)
 
 Associations
 ------------
 
-Records with the most and least associated records...
+Records with the most and least associated records:
 
     User.maximum_comments
     User.minimum_comments
 
-Records with associated records since a certain time...
+Records with associated records since a certain time:
 
     User.recent_comments_since(2.days.ago)
     User.recent_comments_and_posts_since(3.days.ago)
     User.recent_comments_or_posts_since(4.days.ago)
 
-Records with highest and lowest association column average...
+Records with highest and lowest association column average:
 
     User.by_comments_highest_rating_average
     User.by_comments_lowest_rating_average
 
-Records with highest and lowest association column total...
+Records with highest and lowest association column total:
 
     User.by_comments_highest_rating_total
     User.by_comments_lowest_rating_total
@@ -214,12 +214,12 @@ Records with highest and lowest association column total...
 State columns
 -------------
 
-Records which are in a particular state, or not in a state...
+Records which are in a particular state, or not in a state:
 
     Post.publication_state_draft
     Post.post_type_not_open
 
-Query methods on instances to check state...
+Query methods on instances to check state:
 
     Post.first.publication_state_draft?
     Post.last.post_type_not_open?
@@ -227,7 +227,7 @@ Query methods on instances to check state...
 Numeric columns
 ---------------
 
-Records which are greater than or less than a certain value...
+Records which are greater than or less than a certain value:
 
     User.age_greater_than(21)
     User.age_greater_than_or_equal_to(21)
@@ -237,7 +237,7 @@ Records which are greater than or less than a certain value...
 Limits
 ------
 
-First x records...
+First x records:
 
     User.limited(10)
 
@@ -246,11 +246,11 @@ Named scopes
 
 Because these are all scope, you can combine them.
 
-To get all users that have a first_name set, who are admins and approved more than 2 weeks ago, ordered by their first name...
+To get all users that have a first\_name set, who are admins and approved more than 2 weeks ago, ordered by their first name:
 
     User.first_name_present.admin.approved_at_before(2.weeks.ago).by_first_name
 
-To get the top 10 commenters...
+To get the top 10 commenters:
 
     User.maximum_comments.limited(10)
 

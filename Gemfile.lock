@@ -1,3 +1,8 @@
+PATH
+  remote: .
+  specs:
+    pacecar (1.5.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -28,7 +33,7 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
-    appraisal (0.2.0)
+    appraisal (0.4.0)
       bundler
       rake
     arel (2.0.6)
@@ -116,8 +121,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  appraisal
+  appraisal (~> 0.4)
   capybara (>= 0.4.0)
   factory_girl_rails
   mocha
+  pacecar!
   rspec-rails (>= 2.4.0)

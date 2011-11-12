@@ -11,6 +11,7 @@ require 'pacecar/ranking'
 require 'pacecar/search'
 require 'pacecar/state'
 require 'pacecar/numeric'
+require 'pacecar/version'
 
 module Pacecar
   def self.included(base)

@@ -1,3 +1,8 @@
+PATH
+  remote: /Users/gabe/thoughtbot/pacecar
+  specs:
+    pacecar (1.5.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -29,7 +34,7 @@ GEM
       activesupport (= 3.1.1)
     activesupport (3.1.1)
       multi_json (~> 1.0)
-    appraisal (0.3.8)
+    appraisal (0.4.0)
       bundler
       rake
     arel (2.2.1)
@@ -130,10 +135,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  appraisal
+  appraisal (~> 0.4)
   capybara (>= 0.4.0)
   factory_girl_rails
   mocha
+  pacecar!
   pg
   rails (= 3.1.1)
   rspec-rails (>= 2.4.0)

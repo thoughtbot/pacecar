@@ -24,7 +24,7 @@ describe 'Helpers' do
     end
 
     it "should return non boolean columns for #non_boolean_column_names" do
-      User.non_boolean_column_names.should == ['id', 'approved_at', 'rejected_at', 'last_posted_on', 'first_name', 'last_name', 'description', 'age', 'rating', 'created_at', 'updated_at']
+      User.non_boolean_column_names.should == ['id', 'approved_at', 'rejected_at', 'last_posted_on', 'first_name', 'last_name', 'description', 'age', 'rating', 'balance', 'created_at', 'updated_at']
     end
 
     it "should  return datetime columns for #datetime_column_names" do
@@ -36,7 +36,7 @@ describe 'Helpers' do
     end
 
     it "should  return numeric columns for #numeric_column_names" do
-      User.numeric_column_names.should == ['id', 'age', 'rating']
+      User.numeric_column_names.should == ['id', 'age', 'rating', 'balance']
     end
   end
 

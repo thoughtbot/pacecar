@@ -10,6 +10,7 @@ class CreateSchema < ActiveRecord::Migration
       t.text :description
       t.integer :age
       t.float :rating
+      t.decimal :balance
       t.timestamps
     end
     create_table :posts, :force => true do |t|

@@ -38,7 +38,7 @@ module Pacecar
       end
 
       def numeric_column_names
-        column_names_for_type :integer, :float
+        column_names_for_type :integer, :float, :decimal
       end
 
       protected

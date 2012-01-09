@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = 'pacecar'
   s.version     = Pacecar::VERSION.dup
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ['Matt Jankowski', 'Chad Pytel', 'Ryan McGeary', 'Mike Burns', 'Tristan Dunn']
+  s.authors     = ['Matt Jankowski', 'Gabe Berke-Williams', 'Chad Pytel', 'Ryan McGeary', 'Mike Burns', 'Ryan Sonnek', 'Thomas Dippel', 'Tristan Dunn']
   s.email       = 'support@thoughtbot.com'
   s.homepage    = 'http://github.com/thoughtbot/pacecar'
   s.summary     = 'Pacecar adds scope methods to ActiveRecord classes via database column introspection.'

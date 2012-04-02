@@ -2,6 +2,7 @@ PATH
   remote: /Users/mjankowski/Development/opensource/pacecar
   specs:
     pacecar (1.5.3)
+      activerecord (>= 3.0.0)
 
 GEM
   remote: http://rubygems.org/

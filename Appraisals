@@ -1,4 +1,4 @@
-rails_versions = ['3.0.12', '3.1.4']
+rails_versions = ['3.0.12', '3.1.4', '3.2.3']
 database_drivers = ['mysql', 'sqlite3-ruby', 'pg', 'sqlite3']
 
 rails_versions.each do |rails_version|

@@ -1,0 +1,2 @@
+import 'Rakefile'
+import 'spec/dummy/Rakefile'

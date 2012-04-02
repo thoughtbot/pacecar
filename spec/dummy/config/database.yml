@@ -36,7 +36,7 @@ pg: &pg
 
 # This is because of appraisal - find the gem which was loaded, and use that driver
 test: 
-  <<: *<%= Gem.loaded_specs.keys.select { |key| ['sqlite3', 'mysql', 'mysql2', 'pg'].include? key }.first %>
+  <<: *<%= Gem.loaded_specs.keys.select { |key| ['sqlite3', 'mysql', 'mysql2', 'pg'].include? key }.first or raise('Database gem was not loaded') %>
 
 production:
   adapter: sqlite3

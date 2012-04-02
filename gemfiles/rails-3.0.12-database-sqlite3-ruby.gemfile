@@ -2,7 +2,7 @@
 
 source "http://rubygems.org"
 
-gem "rails", "3.0.11"
-gem "sqlite3"
+gem "rails", "3.0.12"
+gem "sqlite3-ruby"
 
 gemspec :path=>"../"

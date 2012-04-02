@@ -1,4 +1,19 @@
-rvm: 1.9.2
+language: ruby
+rvm:
+  - 1.9.2
+  - 1.9.3
+gemfile:
+  - gemfiles/rails-3.0.12-database-mysql.gemfile
+  - gemfiles/rails-3.0.12-database-mysql2.gemfile
+  - gemfiles/rails-3.0.12-database-pg.gemfile
+  - gemfiles/rails-3.0.12-database-sqlite3.gemfile
+  - gemfiles/rails-3.1.4-database-mysql.gemfile
+  - gemfiles/rails-3.1.4-database-mysql2.gemfile
+  - gemfiles/rails-3.1.4-database-pg.gemfile
+  - gemfiles/rails-3.1.4-database-sqlite3.gemfile
+  - gemfiles/rails-3.2.3-database-mysql.gemfile
+  - gemfiles/rails-3.2.3-database-pg.gemfile
+  - gemfiles/rails-3.2.3-database-sqlite3.gemfile
 before_script:
   - "mysql -e 'create database pacecar_test;' >/dev/null"
   - "psql -c 'create database pacecar_test;' -U postgres >/dev/null"

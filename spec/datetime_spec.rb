@@ -4,13 +4,13 @@ describe 'Datetime' do
 
   before do
     date = DateTime.parse '2000-01-01'
-    @abe = Factory :user, :created_at => date, :rejected_at => date, :updated_at => date, :last_posted_on => date, :approved_at => date
+    @abe = create :user, :created_at => date, :rejected_at => date, :updated_at => date, :last_posted_on => date, :approved_at => date
 
     date = DateTime.parse '2005-05-05'
-    @bob = Factory :user, :created_at => date, :rejected_at => date, :updated_at => date, :last_posted_on => date, :approved_at => date
+    @bob = create :user, :created_at => date, :rejected_at => date, :updated_at => date, :last_posted_on => date, :approved_at => date
 
     date = DateTime.parse '2010-10-10'
-    @fox = Factory :user, :created_at => date, :rejected_at => date, :updated_at => date, :last_posted_on => date, :approved_at => date
+    @fox = create :user, :created_at => date, :rejected_at => date, :updated_at => date, :last_posted_on => date, :approved_at => date
   end
 
   [:created_at, :rejected_at, :updated_at, :last_posted_on, :approved_at].each do |column|

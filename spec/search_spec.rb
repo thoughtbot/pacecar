@@ -3,15 +3,15 @@ require 'spec_helper'
 describe 'Search' do
 
   before do
-    @abe      = Factory :user, :first_name => 'Abe',    :last_name => 'Anderson', :description => 'Apple'
-    @bob      = Factory :user, :first_name => 'Bob',    :last_name => 'Babson',   :description => 'Banana'
-    @cindy    = Factory :user, :first_name => 'Cindy',  :last_name => 'Clarkson', :description => 'Cookie'
-    @dave     = Factory :user, :first_name => 'Dave'
-    @ed       = Factory :user, :last_name => 'Dave'
-    @frank    = Factory :user, :description => 'Dave'
-    @george   = Factory :user, :first_name => 'Dave',   :last_name => 'Dave',     :description => 'Dave'
+    @abe      = create :user, :first_name => 'Abe',    :last_name => 'Anderson', :description => 'Apple'
+    @bob      = create :user, :first_name => 'Bob',    :last_name => 'Babson',   :description => 'Banana'
+    @cindy    = create :user, :first_name => 'Cindy',  :last_name => 'Clarkson', :description => 'Cookie'
+    @dave     = create :user, :first_name => 'Dave'
+    @ed       = create :user, :last_name => 'Dave'
+    @frank    = create :user, :description => 'Dave'
+    @george   = create :user, :first_name => 'Dave',   :last_name => 'Dave',     :description => 'Dave'
 
-    @null     = Factory :user, :first_name => nil,      :last_name => nil,        :description => nil
+    @null     = create :user, :first_name => nil,      :last_name => nil,        :description => nil
   end
 
   it "should set the correct expected values for a _equals column method" do

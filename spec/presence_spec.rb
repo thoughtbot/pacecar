@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'Presence' do
 
   before do
-    @not_null = Factory :user, :first_name => 'Fake'
-    @null = Factory :user, :first_name => nil
+    @not_null = create :user, :first_name => 'Fake'
+    @null = create :user, :first_name => nil
   end
 
   it "should set the correct expected values for a _present column method" do

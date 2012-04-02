@@ -3,11 +3,11 @@ require 'spec_helper'
 describe 'Boolean' do
 
   before do
-    @one = Factory :user, :admin => true
-    @two = Factory :user, :admin => true
-    @three = Factory :user, :admin => true
-    @four = Factory :user, :admin => false
-    @five = Factory :user, :admin => false
+    @one = create :user, :admin => true
+    @two = create :user, :admin => true
+    @three = create :user, :admin => true
+    @four = create :user, :admin => false
+    @five = create :user, :admin => false
   end
 
   it "should set the correct expected values for a boolean column method" do
@@ -23,7 +23,7 @@ describe 'Boolean' do
   end
 
   it "should return correct value for balance class method when true less than false" do
-    3.times { Factory :user, :admin => false }
+    3.times { create :user, :admin => false }
     User.admin_balance.should == -2
   end
 

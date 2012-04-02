@@ -3,10 +3,10 @@ require 'spec_helper'
 describe 'State' do
 
   before do
-    @draft_post = Factory :post, :publication_state => 'Draft'
-    @final_post = Factory :post, :publication_state => 'Final'
-    @free_post = Factory :post, :post_type => 'Free'
-    @open_post = Factory :post, :post_type => 'Open'
+    @draft_post = create :post, :publication_state => 'Draft'
+    @final_post = create :post, :publication_state => 'Final'
+    @free_post = create :post, :post_type => 'Free'
+    @open_post = create :post, :post_type => 'Open'
 
     @post = Post.new
     Post::PUBLICATION_STATES.should_not be_nil

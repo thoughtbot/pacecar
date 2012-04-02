@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'Order' do
 
   before do
-    @first = Factory :user, :first_name => 'Abe'
-    @last  = Factory :user, :first_name => 'Zed'
+    @first = create :user, :first_name => 'Abe'
+    @last  = create :user, :first_name => 'Zed'
   end
 
   it "should set the correct expected values for a by_ column method with no args" do

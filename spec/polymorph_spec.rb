@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'Polymorph' do
 
   before do
-    @owned_by_user = Factory :post, :owner_type => 'User'
-    @owned_by_mammal = Factory :post, :owner_type => 'Mammal'
+    @owned_by_user = create :post, :owner_type => 'User'
+    @owned_by_mammal = create :post, :owner_type => 'Mammal'
   end
 
   it "should set the correct expected values on a _for column method with Class" do

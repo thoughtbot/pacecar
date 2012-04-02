@@ -3,18 +3,18 @@ require 'spec_helper'
 describe 'Associations', 'has recent records' do
 
   before do
-    @comment_user = Factory :user
-    @post_user = Factory :user
-    @both_user = Factory :user
-    Factory :comment, :user => @comment_user, :created_at => 10.days.ago
-    Factory :comment, :user => @comment_user, :created_at => 3.days.ago
-    Factory :post, :owner => @post_user, :created_at => 10.days.ago
-    Factory :post, :owner => @post_user, :created_at => 3.days.ago
+    @comment_user = create :user
+    @post_user = create :user
+    @both_user = create :user
+    create :comment, :user => @comment_user, :created_at => 10.days.ago
+    create :comment, :user => @comment_user, :created_at => 3.days.ago
+    create :post, :owner => @post_user, :created_at => 10.days.ago
+    create :post, :owner => @post_user, :created_at => 3.days.ago
 
-    Factory :comment, :user => @both_user, :created_at => 10.days.ago
-    Factory :comment, :user => @both_user, :created_at => 3.days.ago
-    Factory :post, :owner => @both_user, :created_at => 10.days.ago
-    Factory :post, :owner => @both_user, :created_at => 3.days.ago
+    create :comment, :user => @both_user, :created_at => 10.days.ago
+    create :comment, :user => @both_user, :created_at => 3.days.ago
+    create :post, :owner => @both_user, :created_at => 10.days.ago
+    create :post, :owner => @both_user, :created_at => 3.days.ago
   end
 
   it "should set the correct options for a recent methods for one association" do

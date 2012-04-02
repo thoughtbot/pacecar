@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'Duration' do
 
   before do
-    @same_user = Factory :user, :created_at => 15.days.ago.midnight, :updated_at => 15.days.ago.midnight
-    @updated_user = Factory :user, :created_at => 15.days.ago.midnight, :updated_at => 1.days.ago.midnight
+    @same_user = create :user, :created_at => 15.days.ago.midnight, :updated_at => 15.days.ago.midnight
+    @updated_user = create :user, :created_at => 15.days.ago.midnight, :updated_at => 1.days.ago.midnight
   end
 
   it "should set the correct expected values for a with_duration_of datetime column method" do

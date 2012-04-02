@@ -3,9 +3,9 @@ require 'spec_helper'
 describe 'Numeric' do
 
   before do
-    @young = Factory :user, :age => 11, :rating => 10.0
-    @legal = Factory :user, :age => 21, :rating => 7.5
-    @older = Factory :user, :age => 31, :rating => 5.0
+    @young = create :user, :age => 11, :rating => 10.0
+    @legal = create :user, :age => 21, :rating => 7.5
+    @older = create :user, :age => 31, :rating => 5.0
   end
 
   it "should set the correct expected values for a _greater_than column method for an integer column" do

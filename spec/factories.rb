@@ -19,8 +19,8 @@ FactoryGirl.define do
   end
 
   factory :user do
-    age     { Factory.next :age }
-    rating  { Factory.next :rating }
+    age
+    rating
   end
 
 end

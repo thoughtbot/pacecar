@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Limit' do
 
   before do
-    50.times { Factory :user }
+    50.times { create :user }
   end
 
   it "should set the correct expected values for a by_ column method" do

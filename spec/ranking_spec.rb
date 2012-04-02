@@ -3,11 +3,11 @@ require 'spec_helper'
 describe 'Ranking', 'has ranking' do
 
   before do
-    @many = Factory :user
-    5.times { Factory :comment, :user => @many }
-    @few = Factory :user
-    2.times { Factory :comment, :user => @few }
-    @none = Factory :user
+    @many = create :user
+    5.times { create :comment, :user => @many }
+    @few = create :user
+    2.times { create :comment, :user => @few }
+    @none = create :user
   end
 
   it "should set the correct expected values on a maximum_ column method" do
@@ -28,13 +28,13 @@ end
 
 describe 'Ranking', 'has calculated records' do
   before do
-    @user_one = Factory :user
-    @user_two = Factory :user
-    Factory :comment, :user => @user_one, :rating => 8
-    Factory :comment, :user => @user_one, :rating => 6
-    Factory :comment, :user => @user_two, :rating => 4
-    Factory :comment, :user => @user_two, :rating => 3
-    Factory :comment, :user => @user_two, :rating => 2
+    @user_one = create :user
+    @user_two = create :user
+    create :comment, :user => @user_one, :rating => 8
+    create :comment, :user => @user_one, :rating => 6
+    create :comment, :user => @user_two, :rating => 4
+    create :comment, :user => @user_two, :rating => 3
+    create :comment, :user => @user_two, :rating => 2
   end
   it "should order records based on association column highest average" do
     output = User.by_comments_highest_rating_average

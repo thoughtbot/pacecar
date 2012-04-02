@@ -22,6 +22,9 @@ ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
+require 'factory_girl'
+require 'factories'
+
 RSpec.configure do |config|
   # Remove this line if you don't want RSpec's should and should_not
   # methods or matchers
@@ -32,7 +35,6 @@ RSpec.configure do |config|
   config.mock_with :mocha
 
   config.use_transactional_fixtures = true
-end
 
-require 'factory_girl'
-require 'factories'
+  config.include FactoryGirl::Syntax::Methods
+end

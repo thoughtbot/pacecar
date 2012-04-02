@@ -12,6 +12,7 @@ gemfile:
   - gemfiles/rails-3.1.4-database-pg.gemfile
   - gemfiles/rails-3.1.4-database-sqlite3.gemfile
   - gemfiles/rails-3.2.3-database-mysql.gemfile
+  - gemfiles/rails-3.2.3-database-mysql2.gemfile
   - gemfiles/rails-3.2.3-database-pg.gemfile
   - gemfiles/rails-3.2.3-database-sqlite3.gemfile
 before_script:

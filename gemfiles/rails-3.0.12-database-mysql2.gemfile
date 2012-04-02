@@ -4,5 +4,6 @@ source "http://rubygems.org"
 
 gem "rails", "3.0.12"
 gem "mysql2", "0.2.13"
+gem "pacecar", :path=>"../"
 
 gemspec :path=>"../"

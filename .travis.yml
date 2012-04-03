@@ -18,4 +18,4 @@ gemfile:
 before_script:
   - "mysql -e 'create database pacecar_test;' >/dev/null"
   - "psql -c 'create database pacecar_test;' -U postgres >/dev/null"
-  - "RAILS_ENV=test bundle exec rake -f SetupRakefile db:migrate"
+  - "cd spec/dummy && RAILS_ENV=test bundle exec rake db:migrate && cd -"

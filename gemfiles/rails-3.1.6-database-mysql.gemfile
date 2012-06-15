@@ -2,7 +2,7 @@
 
 source "http://rubygems.org"
 
-gem "rails", "3.0.13"
+gem "rails", "3.1.6"
 gem "mysql"
 gem "pacecar", :path=>"../"
 

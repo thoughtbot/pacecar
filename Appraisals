@@ -1,4 +1,4 @@
-rails_versions = ['3.0.15', '3.1.6', '3.2.6']
+rails_versions = ['3.0.17', '3.1.8', '3.2.8']
 database_drivers = ['mysql', 'pg', 'sqlite3']
 
 rails_versions.each do |rails_version|
@@ -12,7 +12,7 @@ rails_versions.each do |rails_version|
 end
 
 # The mysql2 gem needed by Rails changes with Rails versions
-rails_to_mysql2_mappings = { '3.2.6' => '0.3.11', '3.1.6' => '0.3.11', '3.0.15' => '0.2.18' }
+rails_to_mysql2_mappings = { '3.2.8' => '0.3.11', '3.1.8' => '0.3.11', '3.0.17' => '0.2.18' }
 rails_to_mysql2_mappings.each do |rails_gem_version, mysql2_gem_version|
   appraise "rails-#{rails_gem_version}-database-mysql2" do
     gem 'rails', rails_gem_version

@@ -11,7 +11,7 @@ rails_versions = {
     'pg' => nil,
     'sqlite3' => nil
     },
-  '3.2.8' => {
+  '3.2.9' => {
     'mysql' => '2.8.1',
     'mysql2' => '0.3.11',
     'pg' => nil,

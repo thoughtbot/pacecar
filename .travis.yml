@@ -3,18 +3,18 @@ rvm:
   - 1.9.2
   - 1.9.3
 gemfile:
-  - gemfiles/rails-3.0.17-database-mysql.gemfile
-  - gemfiles/rails-3.0.17-database-mysql2.gemfile
-  - gemfiles/rails-3.0.17-database-pg.gemfile
-  - gemfiles/rails-3.0.17-database-sqlite3.gemfile
-  - gemfiles/rails-3.1.8-database-mysql.gemfile
-  - gemfiles/rails-3.1.8-database-mysql2.gemfile
-  - gemfiles/rails-3.1.8-database-pg.gemfile
-  - gemfiles/rails-3.1.8-database-sqlite3.gemfile
-  - gemfiles/rails-3.2.8-database-mysql.gemfile
-  - gemfiles/rails-3.2.8-database-mysql2.gemfile
-  - gemfiles/rails-3.2.8-database-pg.gemfile
-  - gemfiles/rails-3.2.8-database-sqlite3.gemfile
+  - gemfiles/rails_3.0.17_database_mysql.gemfile
+  - gemfiles/rails_3.0.17_database_mysql2.gemfile
+  - gemfiles/rails_3.0.17_database_pg.gemfile
+  - gemfiles/rails_3.0.17_database_sqlite3.gemfile
+  - gemfiles/rails_3.1.8_database_mysql.gemfile
+  - gemfiles/rails_3.1.8_database_mysql2.gemfile
+  - gemfiles/rails_3.1.8_database_pg.gemfile
+  - gemfiles/rails_3.1.8_database_sqlite3.gemfile
+  - gemfiles/rails_3.2.8_database_mysql.gemfile
+  - gemfiles/rails_3.2.8_database_mysql2.gemfile
+  - gemfiles/rails_3.2.8_database_pg.gemfile
+  - gemfiles/rails_3.2.8_database_sqlite3.gemfile
 before_script:
   - "mysql -e 'create database pacecar_test;' >/dev/null"
   - "psql -c 'create database pacecar_test;' -U postgres >/dev/null"

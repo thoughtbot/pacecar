@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency("activerecord", ">= 3.0.0")
 
   s.add_development_dependency("appraisal", "~> 0.5.1")
-  s.add_development_dependency("capybara", ">= 0.4.0")
   s.add_development_dependency("mocha", "0.12.3")
   s.add_development_dependency("rspec-rails", ">= 2.9.0")
   s.add_development_dependency("factory_girl_rails")

@@ -2,8 +2,8 @@
 
 source "http://rubygems.org"
 
-gem "rails", "3.0.18"
-gem "sqlite3"
+gem "rails", "3.2.11"
+gem "pg"
 gem "pacecar", :path=>"../"
 
 gemspec :path=>"../"

@@ -13,6 +13,6 @@ task :default do |t|
   end
 end
 
-task :appraise => ['appraisal:install'] do |t|
+task appraise: ['appraisal:install'] do |t|
   exec 'rake appraisal'
 end

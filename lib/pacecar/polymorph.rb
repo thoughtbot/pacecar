@@ -1,15 +1,15 @@
+require 'active_support/concern'
+
 module Pacecar
   module Polymorph
-    def self.included(base)
-      base.extend ClassMethods
-    end
+    extend ActiveSupport::Concern
 
     module ClassMethods
 
       def has_polymorph(name)
-        scope "for_#{name}_type".to_sym, lambda { |type|
+        scope "for_#{name}_type", ->(type) {
           polymorph_type = "#{name}_type"
-          { :conditions => ["#{quoted_table_name}.#{connection.quote_column_name polymorph_type} = ?", type.to_s] }
+          where(polymorph_type => type)
         }
       end
 

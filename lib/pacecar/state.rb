@@ -1,8 +1,8 @@
+require 'active_support/concern'
+
 module Pacecar
   module State
-    def self.included(base)
-      base.extend ClassMethods
-    end
+    extend ActiveSupport::Concern
 
     module ClassMethods
 
@@ -11,8 +11,12 @@ module Pacecar
         names.each do |name|
           constant = opts[:with] || const_get(name.to_s.pluralize.upcase)
           constant.each do |state|
-            scope "#{name}_#{state.downcase}".to_sym, :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} = ?", state]
-            scope "#{name}_not_#{state.downcase}".to_sym, :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} <> ?", state]
+            scope "#{name}_#{state.downcase}", -> {
+              where(arel_table[name].eq state)
+            }
+            scope "#{name}_not_#{state.downcase}", -> {
+              where(arel_table[name].not_eq state)
+            }
             self.class_eval %Q{
               def #{name}_#{state.downcase}?
                 #{name} == '#{state}'
@@ -22,11 +26,11 @@ module Pacecar
               end
             }
           end
-          scope "#{name}".to_sym, lambda { |state|
-            { :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} = ?", state] }
+          scope "#{name}", ->(state) {
+            where(arel_table[name].eq state)
           }
-          scope "#{name}_not".to_sym, lambda { |state|
-            { :conditions => ["#{quoted_table_name}.#{connection.quote_column_name name} <> ?", state] }
+          scope "#{name}_not", ->(state) {
+            where(arel_table[name].not_eq state)
           }
         end
       end

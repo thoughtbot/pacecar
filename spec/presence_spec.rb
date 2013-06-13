@@ -3,21 +3,21 @@ require 'spec_helper'
 describe 'Presence' do
 
   before do
-    @not_null = create :user, :first_name => 'Fake'
-    @null = create :user, :first_name => nil
+    @not_null = create :user, first_name: 'Fake'
+    @null = create :user, first_name: nil
   end
 
-  it "should set the correct expected values for a _present column method" do
-    User.first_name_present.should == [@not_null]
+  it 'Returns records for a _present column method' do
+    expect(User.first_name_present).to eq [@not_null]
   end
 
-  it "should set the correct expected values for a _missing column method" do
-    User.first_name_missing.should == [@null]
+  it 'Returns records for a _missing column method' do
+    expect(User.first_name_missing).to eq [@null]
   end
 
-  it "should not setup methods for boolean columns" do
-    lambda { User.admin_missing }.should raise_error(NoMethodError)
-    lambda { User.admin_present }.should raise_error(NoMethodError)
+  it 'Does not setup methods for boolean columns' do
+    expect { User.admin_missing }.to raise_error(NoMethodError)
+    expect { User.admin_present }.to raise_error(NoMethodError)
   end
 
 end

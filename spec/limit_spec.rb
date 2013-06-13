@@ -3,23 +3,23 @@ require 'spec_helper'
 describe 'Limit' do
 
   before do
-    50.times { create :user }
+    create_list(:user, 15)
   end
 
-  it "should set the correct expected values for a by_ column method" do
-    User.count.should == 50
-    User.limited.all.size.should == 10
+  it 'Limits the results to the default value' do
+    expect(User.count).to eq 15
+    expect(User.limited.size).to eq 10
   end
 
-  it "should set the correct expected values for a by_ column method when sent args" do
-    User.count.should == 50
-    User.limited(20).all.size.should == 20
+  it 'Limits the results to the supplied value when sent args' do
+    expect(User.count).to eq 15
+    expect(User.limited(5).size).to eq 5
   end
 
-  it "should set the correct expected values for a by_ column method when per_page defined" do
-    User.expects(:per_page).returns 30
-    User.count.should == 50
-    User.limited.all.size.should == 30
+  it 'Limits the results to the per_page value of the class' do
+    User.expects(:per_page).returns 2
+    expect(User.count).to eq 15
+    expect(User.limited.size).to eq 2
   end
 
 end

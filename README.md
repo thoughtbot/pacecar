@@ -35,8 +35,8 @@ Assuming a database schema:
 
     class CreateSchema < ActiveRecord::Migration
       def self.up
-        create_table :users, :force => true do |t|
-          t.boolean :admin, :default => false, :null => false
+        create_table :users, force: true do |t|
+          t.boolean :admin, default: false, null: false
           t.datetime :approved_at
           t.datetime :rejected_at
           t.string :first_name
@@ -44,14 +44,14 @@ Assuming a database schema:
           t.text :description
           t.timestamps
         end
-        create_table :posts, :force => true do |t|
+        create_table :posts, force: true do |t|
           t.string :owner_type
           t.integer :owner_id
           t.string :publication_state
           t.string :post_type
           t.timestamps
         end
-        create_table :comments, :force => true do |t|
+        create_table :comments, force: true do |t|
           t.integer :user_id
           t.text :description
           t.integer :rating

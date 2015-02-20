@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Limit' do
 
@@ -17,7 +17,7 @@ describe 'Limit' do
   end
 
   it 'Limits the results to the per_page value of the class' do
-    User.expects(:per_page).returns 2
+    allow(User).to receive(:per_page).and_return(2)
     expect(User.count).to eq 15
     expect(User.limited.size).to eq 2
   end

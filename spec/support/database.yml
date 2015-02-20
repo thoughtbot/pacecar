@@ -8,7 +8,7 @@ development:
 
 sqlite3: &sqlite3
   adapter: sqlite3
-  database: db/test.sqlite3
+  database: tmp/test.sqlite3
   pool: 5
   timeout: 5000
 
@@ -16,7 +16,7 @@ mysql: &mysql
   adapter: mysql
   database: pacecar_test
   username: root
-  password: 
+  password:
   host: localhost
   encoding: utf8
 
@@ -24,7 +24,7 @@ mysql2: &mysql2
   adapter: mysql2
   database: pacecar_test
   username: root
-  password: 
+  password:
   host: localhost
   encoding: utf8
 
@@ -35,7 +35,7 @@ pg: &pg
   database: pacecar_test
 
 # This is because of appraisal - find the gem which was loaded, and use that driver
-test: 
+test:
   <<: *<%= Gem.loaded_specs.keys.select { |key| ['sqlite3', 'mysql', 'mysql2', 'pg'].include? key }.first or raise('Database gem was not loaded') %>
 
 production:

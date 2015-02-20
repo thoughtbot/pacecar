@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'State' do
 
@@ -47,22 +47,22 @@ describe 'State' do
 
     it 'Responds true to query method for a #{state} state value when in that state' do
       @post.publication_state = state
-      expect(@post.send("publication_state_#{state.downcase}?")).to be_true
+      expect(@post.send("publication_state_#{state.downcase}?")).to be true
     end
 
     it 'Responds false to not query method for a #{state} state value when in that state' do
       @post.publication_state = state
-      expect(@post.send("publication_state_not_#{state.downcase}?")).to be_false
+      expect(@post.send("publication_state_not_#{state.downcase}?")).to be false
     end
 
     it 'Responds false to query method for a #{state} state value when not in that state' do
       @post.publication_state = 'Invalid'
-      expect(@post.send("publication_state_#{state.downcase}?")).to be_false
+      expect(@post.send("publication_state_#{state.downcase}?")).to be false
     end
 
     it 'Responds true to not query method for a #{state} state value when not in that state' do
       @post.publication_state = 'Invalid'
-      expect(@post.send("publication_state_not_#{state.downcase}?")).to be_true
+      expect(@post.send("publication_state_not_#{state.downcase}?")).to be true
     end
   end
 

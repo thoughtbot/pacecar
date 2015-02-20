@@ -1,14 +1,11 @@
-appraise 'rails_4_mysql2_driver' do
-  gem 'rails', '4.0.0'
-  gem 'mysql2'
-end
+rails_versions = ['4.0.0', '4.1.0', '4.2.0']
+database_drivers = ['mysql2', 'pg', 'sqlite3']
 
-appraise 'rails_4_pg_driver' do
-  gem 'rails', '4.0.0'
-  gem 'pg'
-end
-
-appraise 'rails_4_sqlite3_driver' do
-  gem 'rails', '4.0.0'
-  gem 'sqlite3'
+rails_versions.each do |rails|
+  database_drivers.each do |database|
+    appraise "rails_#{rails}_#{database}_driver" do
+      gem 'rails', "~> #{rails}"
+      gem database
+    end
+  end
 end

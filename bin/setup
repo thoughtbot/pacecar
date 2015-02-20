@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+# Bundle to make sure appraisal and latest gems are installed
+bundle
+
+# Run appraisal to set up each rails/database combination
+bundle exec appraisal install

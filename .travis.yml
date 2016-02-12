@@ -1,21 +1,31 @@
 language: ruby
 rvm:
-  - 2.0.0
-  - 2.1.5
-  - 2.2.0
+  - 2.1.8
+  - 2.2.4
+  - 2.3.0
 gemfile:
-  - gemfiles/rails_4.0.0_mysql2_driver.gemfile
-  - gemfiles/rails_4.0.0_pg_driver.gemfile
-  - gemfiles/rails_4.0.0_sqlite3_driver.gemfile
-  - gemfiles/rails_4.1.0_mysql2_driver.gemfile
-  - gemfiles/rails_4.1.0_pg_driver.gemfile
-  - gemfiles/rails_4.1.0_sqlite3_driver.gemfile
+  - gemfiles/rails_5.0.0.beta2_mysql2_driver.gemfile
+  - gemfiles/rails_5.0.0.beta2_pg_driver.gemfile
+  - gemfiles/rails_5.0.0.beta2_sqlite3_driver.gemfile
   - gemfiles/rails_4.2.0_mysql2_driver.gemfile
   - gemfiles/rails_4.2.0_pg_driver.gemfile
   - gemfiles/rails_4.2.0_sqlite3_driver.gemfile
+  - gemfiles/rails_4.1.0_mysql2_driver.gemfile
+  - gemfiles/rails_4.1.0_pg_driver.gemfile
+  - gemfiles/rails_4.1.0_sqlite3_driver.gemfile
+install:
+  - 'travis_retry bundle install'
 before_script:
   - "mysql -e 'create database pacecar_test;' >/dev/null"
   - "psql -c 'create database pacecar_test;' -U postgres >/dev/null"
 notifications:
   email: false
 sudo: false
+matrix:
+  exclude:
+    - rvm: 2.1.8
+      gemfile: gemfiles/rails_5.0.0.beta2_mysql2_driver.gemfile
+    - rvm: 2.1.8
+      gemfile: gemfiles/rails_5.0.0.beta2_pg_driver.gemfile
+    - rvm: 2.1.8
+      gemfile: gemfiles/rails_5.0.0.beta2_sqlite3_driver.gemfile

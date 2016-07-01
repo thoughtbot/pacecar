@@ -9,7 +9,7 @@ module Pacecar
       def has_polymorph(name)
         scope "for_#{name}_type", ->(type) {
           polymorph_type = "#{name}_type"
-          where(polymorph_type => type)
+          where(polymorph_type => type.to_s)
         }
       end
 
